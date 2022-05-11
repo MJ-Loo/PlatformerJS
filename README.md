@@ -1,2 +1,2 @@
 # PlatformerJS
-A 3D Platformer utilizing threejs
+Platformer utilizing threejs and physics engine
