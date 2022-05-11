@@ -5,8 +5,7 @@ export class Lighting{
     }
 
     ambientLight(){
-        let light = new THREE.AmbientLight(0xffffff)
-        this.lights.push(light)
+        let light = new THREE.AmbientLight(0xffffff, 0.5);
         return light
     }
 }
