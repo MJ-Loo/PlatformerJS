@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 export class Lighting{
     constructor(){
-        this.lights =[]
     }
 
     ambientLight(){

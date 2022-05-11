@@ -5,55 +5,62 @@ import { Models } from './Models.js';
 import { Controls } from './Controls.js';
 import { RitualRoom } from './ritualroom.js';
 import { Floor } from './objects/Floor.js';
+
 export class World{
-    constructor(document,window){
-        this.document =document
-        this.window = window
+
+    constructor(document, window){
+        this.document = document;
+        this.window = window;
     }
+
     display(){
         // initialize render
         let renderer = new THREE.WebGLRenderer();
-        renderer.setSize(this.window.innerWidth,this.window.innerHeight)
+        renderer.setSize(this.window.innerWidth, this.window.innerHeight);
         this.document.body.appendChild(renderer.domElement);
 
         // initialze scene
-        let scene  = new THREE.Scene()
+        let scene  = new THREE.Scene();
 
         //MAKING CAMS
-        let cameras = new Cameras(this.window,scene)
-        let camera = cameras.perspectiveCam()
+        let cameras = new Cameras(this.window, scene);
+        let camera = cameras.perspectiveCamera();
         this.viewPortUpdate(camera, renderer); // updates window when resized
 
         //MAKING LIGHTS
-        let lighting = new Lighting()
-        let light = lighting.ambientLight()
+        let lighting = new Lighting();
+        let light = lighting.ambientLight();
         
         //CONTROLS
-        let controls = new Controls( camera, renderer );
+        let controls = new Controls( camera );
+        controls.initialize();
 
         // DRAW AXIS
         this.drawAxis(scene);
 
         //MAKING MODELS
-        let models = new Models(scene)
-        let floor = new Floor(scene,renderer)
-        floor.initialize_floor()
+        let models = new Models(scene);
+        let floor = new Floor(scene,renderer);
+        floor.initialize_floor();
         // ADDING RITUAL ROOM INTO SCENE
         //let ritualroom = new RitualRoom(scene, renderer)
 
         // MAKING SKY BOX
-        this.drawSkyBox(scene)
+        this.drawSkyBox(scene);
         
         
         //ADDING OBJECTS TO SCENE
-        scene.add(camera)
-        scene.add(light)
+        scene.add(camera);
+        scene.add(light);
        
         //ritualroom.initialize_ritualroom()
-        
+
         //game logic
+        let prevTime = performance.now();
         var update = function(){
-            controls.update();
+            const time = performance.now();
+            controls.update(time, prevTime);
+            prevTime = time;
         };
         //draw scene
         var render = function(){
@@ -70,9 +77,6 @@ export class World{
         GameLoop();
     }
 
-    getCamera(){
-        return this.cameras.getCam()
-    }
     viewPortUpdate(camera, renderer){
         this.window.addEventListener( 'resize', function() {
             let width = this.window.innerWidth;
@@ -93,7 +97,7 @@ export class World{
         const geometryX = new THREE.BufferGeometry().setFromPoints( pointsX );
         const lineX = new THREE.Line( geometryX, materialX );
     
-        scene.add( lineX )
+        scene.add( lineX );
         // y
         const materialY = new THREE.LineBasicMaterial( { color: 0x00ff00 } );
         const pointsY = [];
@@ -103,7 +107,7 @@ export class World{
         const geometryY = new THREE.BufferGeometry().setFromPoints( pointsY );
         const lineY = new THREE.Line( geometryY, materialY );
     
-        scene.add( lineY )
+        scene.add( lineY );
         // z
         const materialZ = new THREE.LineBasicMaterial( { color: 0x0000ff } );
         const pointsZ = [];
@@ -113,7 +117,7 @@ export class World{
         const geometryZ = new THREE.BufferGeometry().setFromPoints( pointsZ );
         const lineZ = new THREE.Line( geometryZ, materialZ );
     
-        scene.add( lineZ )
+        scene.add( lineZ );
     }
     drawSkyBox(scene){
         const loader = new THREE.CubeTextureLoader(); 
