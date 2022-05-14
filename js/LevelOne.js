@@ -3,6 +3,7 @@ import * as CANNON from './cannon/cannon-es.js'
 import {Box} from './objects/Box.js'
 import { Sphere } from './objects/Sphere.js';
 
+
 export class LevelOne{
     constructor(scene, world){
         this.scene = scene;
@@ -50,10 +51,12 @@ export class LevelOne{
         }
         this.box = new Box(params);
         this.box.setPosition({x: 0, y: 25, z: 0});
+        
         // enable shadows
         this.box.mesh.receiveShadow = true;
         this.box.mesh.castShadow = true;
         // add cube to scene and world
+        
         this.world.addBody(this.box.body);
         this.scene.add(this.box.mesh);
 
@@ -72,11 +75,30 @@ export class LevelOne{
         this.world.addBody(this.sphere.body);
         this.scene.add(this.sphere.mesh);
 
+        //testing moving box section
+
+        params = {
+            scale: { x: 5, y: 5, z: 5 },
+            mass: 0, //player cant move it
+            material: new THREE.MeshStandardMaterial({ color: 0x0000ff, wireframe: false })
+        }
+        this.box2 = new Box(params); //making the moving box 
+        this.box2.setDistance(10, 20, 30); //how far it travels
+        this.box2.setSpeed(0.01, 0.01, 0.01); //how fast it travels
+        this.box2.setPosition({ x: 20, y: 50, z: 20 }) //start position
+        this.box2.setMovable(true); //allow it to move
+        // shadows 
+        this.box2.mesh.receiveShadow = true;
+        this.box2.mesh.castShadow = true;
+
+        this.world.addBody(this.box2.body);
+        this.scene.add(this.box2.mesh);
     }
 
     update(){ // update positions and rotations of all objects
         this.ground.update();
         this.box.update();
         this.sphere.update();
+        this.box2.update(); //moving box
     }
 }
