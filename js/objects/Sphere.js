@@ -2,32 +2,38 @@ import * as CANNON from '../cannon/cannon-es.js'
 import * as THREE from 'https://unpkg.com/three@0.140.0/build/three.module.js'
 
 export class Sphere{
-    constructor(param){
+    constructor(params){
         // process params
-        const scale = param.scale;
-        
+        this.params = params;
+        const radius = params.radius;
+        const material = params.material;
+        const mass = params.mass;
+
         // three
-        this.geometry = new THREE.BoxGeometry(scale.x, scale.y, scale.z);
-        this.material = new THREE.MeshBasicMaterial({
-            color: 0x00ff00,
-            wireframe: true
-        });
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.createThreeMesh(radius, material);
 
         // cannon
+        this.createWorldBody(radius, mass);
+    }
+
+    createThreeMesh(radius, material){
+        this.geometry = new THREE.SphereGeometry(radius);
+        this.material = material;
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
+    }
+
+    createWorldBody(radius, mass){
         this.physicalMaterial = new CANNON.Material();
         this.body = new CANNON.Body({
-            mass: 1,
-            shape: new CANNON.Box(new CANNON.Vec3(scale.x/2, scale.y/2, scale.z/2)),
+            mass: mass,
+            shape: new CANNON.Sphere(radius),
             position: new CANNON.Vec3(0, 0, 0),
             material: this.physicalMaterial
         });
     }
 
     setPosition(position){
-        this.body.position.x = position.x;
-        this.body.position.y = position.y;
-        this.body.position.z = position.z;
+        this.body.position.set(position.x, position.y, position.z);
     }
 
     setRotation(rotation){
