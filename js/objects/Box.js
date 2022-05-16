@@ -26,7 +26,7 @@ export class Box{
         this.material = material;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.position.set(position[0], position[1],position[2]);
-        this.mesh.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z, 0);
+        this.mesh.rotation.set(rotation.x, rotation.y, rotation.z);
     }
 
     createWorldBody(scale, mass, position,rotation){
@@ -38,7 +38,7 @@ export class Box{
             material: this.physicalMaterial
         })
         this.body.position.set(position[0], position[1],position[2]);
-        this.body.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z, 0);
+        this.body.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z);
 
     }
 
@@ -47,7 +47,7 @@ export class Box{
     }
 
     setRotation(rotation){
-        this.body.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z, 0);
+        this.body.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z);
     }
 
     setMass(mass){
