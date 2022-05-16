@@ -2,13 +2,14 @@ import * as THREE from 'https://unpkg.com/three@0.140.0/build/three.module.js'
 import * as CANNON from './cannon/cannon-es.js'
 import {Box} from './objects/Box.js'
 import { Sphere } from './objects/Sphere.js';
-
+import { GLTFLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders/GLTFLoader.js';
+import { RitualRoom } from './objects/RitualRoom.js';
 
 export class LevelOne{
-    constructor(scene, world){
+    constructor(scene, world, renderer){
         this.scene = scene;
         this.world = world;
-
+        this.renderer = renderer
         // add ambient light
         const ambientLight = new THREE.AmbientLight( 0x404040, 0.5 ); // soft white light
         scene.add( ambientLight );
@@ -30,75 +31,13 @@ export class LevelOne{
         scene.add( helper );
 
         // create ground object
-        let params = { 
-            scale: {x: 100, y: 1, z: 100},
-            mass: 0,
-            material: new THREE.MeshStandardMaterial({color: 0xffffff, wireframe: false})
-        }
-        this.ground = new Box(params);
-        // enable shadows
-        this.ground.mesh.receiveShadow = true;
-        this.ground.mesh.castShadow = true;
-        // add ground to scene and world
-        this.world.addBody(this.ground.body);
-        this.scene.add(this.ground.mesh);
+        this.startRoom = new RitualRoom(this.scene, this.world, this.renderer);
+        this.startRoom.RitualRoom();
+    }
+    skybox(){
 
-        // create cube object
-        params = { 
-            scale: {x: 5, y: 5, z: 5},
-            mass: 1,
-            material: new THREE.MeshStandardMaterial({color: 0x00ff00, wireframe: false})
-        }
-        this.box = new Box(params);
-        this.box.setPosition({x: 0, y: 25, z: 0});
-        
-        // enable shadows
-        this.box.mesh.receiveShadow = true;
-        this.box.mesh.castShadow = true;
-        // add cube to scene and world
-        
-        this.world.addBody(this.box.body);
-        this.scene.add(this.box.mesh);
-
-        // create sphere object
-        params = {
-            radius: 2,
-            mass: 0,
-            material: new THREE.MeshStandardMaterial({color: 0x0000ff, wireframe: true})
-        }
-        this.sphere = new Sphere(params);
-        this.sphere.setPosition({x: -10, y: 5, z:0});
-        // enable shadows
-        this.sphere.mesh.receiveShadow = true;
-        this.sphere.mesh.castShadow = true;
-        // add sphere to scene and world
-        this.world.addBody(this.sphere.body);
-        this.scene.add(this.sphere.mesh);
-
-        //testing moving box section
-
-        params = {
-            scale: { x: 5, y: 5, z: 5 },
-            mass: 0, //player cant move it
-            material: new THREE.MeshStandardMaterial({ color: 0x0000ff, wireframe: false })
-        }
-        this.box2 = new Box(params); //making the moving box 
-        this.box2.setDistance(10, 20, 30); //how far it travels
-        this.box2.setSpeed(0.01, 0.01, 0.01); //how fast it travels
-        this.box2.setPosition({ x: 20, y: 50, z: 20 }) //start position
-        this.box2.setMovable(true); //allow it to move
-        // shadows 
-        this.box2.mesh.receiveShadow = true;
-        this.box2.mesh.castShadow = true;
-
-        this.world.addBody(this.box2.body);
-        this.scene.add(this.box2.mesh);
     }
 
     update(){ // update positions and rotations of all objects
-        this.ground.update();
-        this.box.update();
-        this.sphere.update();
-        this.box2.update(); //moving box
     }
 }

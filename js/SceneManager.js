@@ -1,5 +1,7 @@
 import * as THREE from 'https://unpkg.com/three@0.140.0/build/three.module.js'
 import Stats from 'https://unpkg.com/three@0.140.0/examples/jsm/libs/stats.module.js'
+import { GLTFLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders/GLTFLoader.js';
+
 import * as CANNON from './cannon/cannon-es.js'
 import {Player} from './Player.js'
 import { LevelOne } from './LevelOne.js'
@@ -56,7 +58,7 @@ export class SceneManager{
     }
 
     loadScene(){ // select level (work in progress, will take in parameter and select correct level)
-        this.level = new LevelOne(this.scene, this.world);
+        this.level = new LevelOne(this.scene, this.world, this.renderer);
     }
 
     update() { // game update

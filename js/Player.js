@@ -13,7 +13,7 @@ export class Player{
         this.physicsMaterial = new CANNON.Material('physics');
         this.body = new CANNON.Body({ mass: 5, material: this.physicsMaterial });
         this.body.addShape(this.bodyShape);
-        this.body.position.set(0, 1, 0);
+        this.body.position.set(0, 3, 0);
         this.body.linearDamping = 0.9;
         this.initPointerLock();
     }
