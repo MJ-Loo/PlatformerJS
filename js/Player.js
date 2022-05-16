@@ -41,6 +41,12 @@ export class Player{
     }
 
     update(dt){
+        //Restart level when player has fallen to y=-30
+        if (this.body.position.y<-20) {
+          this.setPosition({x: 0, y: 2, z: 20})
+          
+        }
+
         this.controls.update(dt);
     }
 }
