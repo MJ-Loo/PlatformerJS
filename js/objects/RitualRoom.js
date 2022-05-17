@@ -17,24 +17,21 @@ export class RitualRoom{
       this.createWalls('RRWallCentre.jpg',[0, 7, -12.5],[0, Math.PI /2,0]);
       this.createWalls('RRWallLeft.jpg',[-12.5, 7, 0], [ 0,0,0]);
       this.createWalls('RRWallRight.jpg',[12.5, 7, 0],[0,0,0]);
-      
-
+      // add ambient light inside the actual room
+      const ambientLight = new THREE.AmbientLight( 0x404040, 0.7 ); // soft white light
+      ambientLight.position.set(12,12,12);
+      this. scene.add( ambientLight );
     }
     AddCandle(){
-      
+
     }
     addLight(){
       const pointLight = new THREE.pointLight(0xffffff, 1 ) 
       pointLight.position.set( 0, 10, 10);
       pointLight.castShadow = true; // enable shadows
-      pointLight.shadow.mapSize.width = 2048; // sharpness of shadow
-      pointLight.shadow.mapSize.height = 2048; // sharpness of shadow
-      pointLight.shadow.camera.left = -10; // area of shadow
-      pointLight.shadow.camera.right = 10; // area of shadow
-      pointLight.shadow.camera.top = 10; // area of shadow
-      pointLight.shadow.camera.bottom = -10; // area of shadow
       this.scene.add( pointLight );
     }
+
     createFloor(){
 
       const RRfloor = this.texture.load('./assets/RitualRoom/RRfloor.jpg');

@@ -52,7 +52,7 @@ export class SceneManager{
             mass: 20
         }
         this.player = new Player(params);
-        this.player.setPosition({x: 0, y: 10, z: 20});
+        this.player.setPosition({x: 0, y: 5, z: 0});
         this.world.addBody(this.player.body);
         this.scene.add(this.player.controls.getObject());
     }
