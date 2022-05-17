@@ -16,7 +16,7 @@ export class LevelOne{
 
         // add directional light
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-        directionalLight.position.set( 10, 10, 10);
+        directionalLight.position.set( 0, 10, 10);
         directionalLight.castShadow = true; // enable shadows
         directionalLight.shadow.mapSize.width = 2048; // sharpness of shadow
         directionalLight.shadow.mapSize.height = 2048; // sharpness of shadow
@@ -29,15 +29,23 @@ export class LevelOne{
         //Create a helper for the shadow camera (optional)
         const helper = new THREE.CameraHelper( directionalLight.shadow.camera );
         scene.add( helper );
-
+        this.drawSkyBox(this.scene);
         // create ground object
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer);
         this.startRoom.RitualRoom();
     }
-    skybox(){
-
+    drawSkyBox(scene){
+        const loader = new THREE.CubeTextureLoader(); 
+        const texture = loader.load([
+          './assets/skybox/posx.jpg',
+          './assets/skybox/negx.jpg',
+          './assets/skybox/posy.jpg',
+          './assets/skybox/negy.jpg',
+          './assets/skybox/posz.jpg',
+          './assets/skybox/negz.jpg',
+          ]);
+         scene.background = texture;
     }
-
     update(){ // update positions and rotations of all objects
     }
 }

@@ -14,10 +14,26 @@ export class RitualRoom{
     RitualRoom(){
       this.createFloor();
       // create walls 
-      this.createWalls('RRWallCentre.jpg',[-25, 0, 0],0);
-      this.createWalls('RRWallLeft.jpg',[0, 0, -25], [ Math.PI /2,0,0]);
-     // this.createWalls('RRWallRight.jpg',[70, 45, 0], Math.PI / 2);
+      this.createWalls('RRWallCentre.jpg',[0, 7, -12.5],[0, Math.PI /2,0]);
+      this.createWalls('RRWallLeft.jpg',[-12.5, 7, 0], [ 0,0,0]);
+      this.createWalls('RRWallRight.jpg',[12.5, 7, 0],[0,0,0]);
+      
 
+    }
+    AddCandle(){
+      
+    }
+    addLight(){
+      const pointLight = new THREE.pointLight(0xffffff, 1 ) 
+      pointLight.position.set( 0, 10, 10);
+      pointLight.castShadow = true; // enable shadows
+      pointLight.shadow.mapSize.width = 2048; // sharpness of shadow
+      pointLight.shadow.mapSize.height = 2048; // sharpness of shadow
+      pointLight.shadow.camera.left = -10; // area of shadow
+      pointLight.shadow.camera.right = 10; // area of shadow
+      pointLight.shadow.camera.top = 10; // area of shadow
+      pointLight.shadow.camera.bottom = -10; // area of shadow
+      this.scene.add( pointLight );
     }
     createFloor(){
 
@@ -28,7 +44,7 @@ export class RitualRoom{
       RRfloor.wrapT = THREE.RepeatWrapping;
       RRfloor.encoding = THREE.sRGBEncoding;
       let params = { 
-          scale: {x: 50, y: 1, z: 50},
+          scale: {x: 25, y: 1, z: 25},
           mass: 0,
           position: [0,0,0],
           rotation: {x:0, y:0,z:0},
@@ -52,7 +68,7 @@ export class RitualRoom{
       RRWall.wrapT = THREE.RepeatWrapping;
       RRWall.encoding = THREE.sRGBEncoding;
       let params = { 
-          scale: {x: 2, y: 50, z: 50},
+          scale: {x: 2, y: 15, z:25},
           mass: 0,
           position: translation,
           rotation: {x:rotation[0], y:rotation[1], z: rotation[2]},
