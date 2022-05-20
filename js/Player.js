@@ -13,7 +13,7 @@ export class Player{
         this.physicsMaterial = new CANNON.Material('physics');
         this.body = new CANNON.Body({ mass: 5, material: this.physicsMaterial });
         this.body.addShape(this.bodyShape);
-        this.body.position.set(0, 1, 0);
+        this.body.position.set(0, 3, 0);
         this.body.linearDamping = 0.9;
         this.initPointerLock();
     }
@@ -41,6 +41,17 @@ export class Player{
     }
 
     update(dt){
+        //Restart level when player has fallen to y=-30
+        if (this.body.position.y<-20) {
+          this.setPosition({x: 0, y: 2, z: 0})
+          console.log("you lose!")
+        }
+        if (this.body.position.z > 90){
+          console.log("you win!");
+          this.setPosition({x: 0, y: 2, z: 0});
+        }
+        
+        // console.log(this.body.position);
         this.controls.update(dt);
     }
 }

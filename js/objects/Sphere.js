@@ -37,7 +37,7 @@ export class Sphere{
     }
 
     setRotation(rotation){
-        this.body.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z, 0);
+        this.body.quaternion.setFromEuler(rotation.x, rotation.y, rotation.z);
     }
 
     setMass(mass){

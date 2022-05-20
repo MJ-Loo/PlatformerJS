@@ -1,5 +1,7 @@
 import * as THREE from 'https://unpkg.com/three@0.140.0/build/three.module.js'
 import Stats from 'https://unpkg.com/three@0.140.0/examples/jsm/libs/stats.module.js'
+import { GLTFLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders/GLTFLoader.js';
+
 import * as CANNON from './cannon/cannon-es.js'
 import {Player} from './Player.js'
 import { LevelOne } from './LevelOne.js'
@@ -27,7 +29,7 @@ export class SceneManager{
     }
     
     initializeWorld(){ // world (cannonjs) gravity set to -9.81 down
-        this.world = new CANNON.World({gravity: new CANNON.Vec3(0, -9.81, 0)});
+        this.world = new CANNON.World({gravity: new CANNON.Vec3(0, -25, 0)});
     }
     
     initializeStats(){ // stats for FPS counter
@@ -50,13 +52,13 @@ export class SceneManager{
             mass: 20
         }
         this.player = new Player(params);
-        this.player.setPosition({x: 0, y: 10, z: 20});
+        this.player.setPosition({x: 0, y: 5, z: 0});
         this.world.addBody(this.player.body);
         this.scene.add(this.player.controls.getObject());
     }
 
     loadScene(){ // select level (work in progress, will take in parameter and select correct level)
-        this.level = new LevelOne(this.scene, this.world);
+        this.level = new LevelOne(this.scene, this.world, this.renderer);
     }
 
     update() { // game update
