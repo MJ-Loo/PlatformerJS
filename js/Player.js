@@ -46,7 +46,7 @@ export class Player{
           this.setPosition({x: 0, y: 2, z: 0})
           console.log("you lose!")
         }
-        if (this.body.position.z > 90){
+        if (this.body.position.z > 210){
           console.log("you win!");
           this.setPosition({x: 0, y: 2, z: 0});
         }
