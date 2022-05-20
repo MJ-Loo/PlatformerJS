@@ -29,7 +29,7 @@ export class SceneManager{
     }
     
     initializeWorld(){ // world (cannonjs) gravity set to -9.81 down
-        this.world = new CANNON.World({gravity: new CANNON.Vec3(0, -9.81, 0)});
+        this.world = new CANNON.World({gravity: new CANNON.Vec3(0, -25, 0)});
     }
     
     initializeStats(){ // stats for FPS counter

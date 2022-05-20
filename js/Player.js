@@ -41,17 +41,8 @@ export class Player{
     }
 
     update(dt){
-<<<<<<< Updated upstream
-        //Restart level when player has fallen to y=-30
-        if (this.body.position.y<-20) {
-          this.setPosition({x: 0, y: 2, z: 20})
-          
-        }
-
-=======
       
-      console.log(this.body.position);
->>>>>>> Stashed changes
-        this.controls.update(dt);
+      //console.log(this.body.position);
+      this.controls.update(dt);
     }
 }

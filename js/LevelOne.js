@@ -4,12 +4,8 @@ import {Box} from './objects/Box.js'
 import { Sphere } from './objects/Sphere.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders/GLTFLoader.js';
 import { RitualRoom } from './objects/RitualRoom.js';
-<<<<<<< Updated upstream
-import { Platforms } from './objects/Platforms.js';
-=======
 import { Corridor } from './objects/Corridor.js';
 import {EndRoom} from './objects/End.js'
->>>>>>> Stashed changes
 
 export class LevelOne{
     constructor(scene, world, renderer){
@@ -17,40 +13,27 @@ export class LevelOne{
         this.world = world;
         this.renderer = renderer
         // add ambient light
-<<<<<<< Updated upstream
-        const ambientLight = new THREE.AmbientLight( 0x404040, 0.5 ); // soft white light
-        scene.add( ambientLight );
-=======
         this.ambientLight = new THREE.AmbientLight( 0x404040, 2 ); // soft white light
         scene.add( this.ambientLight );
->>>>>>> Stashed changes
 
         // add directional light
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-        directionalLight.position.set( 0, 10, 0);
+        directionalLight.position.set( 100, 100, 50);
         directionalLight.castShadow = true; // enable shadows
-        directionalLight.shadow.mapSize.width = 2048; // sharpness of shadow
-        directionalLight.shadow.mapSize.height = 2048; // sharpness of shadow
-        directionalLight.shadow.camera.left = -10; // area of shadow
-        directionalLight.shadow.camera.right = 10; // area of shadow
-        directionalLight.shadow.camera.top = 10; // area of shadow
-        directionalLight.shadow.camera.bottom = -10; // area of shadow
+        directionalLight.shadow.mapSize.width = 1024; // sharpness of shadow
+        directionalLight.shadow.mapSize.height = 1024; // sharpness of shadow
+        directionalLight.shadow.camera.left = -100; // area of shadow
+        directionalLight.shadow.camera.right = 100; // area of shadow
+        directionalLight.shadow.camera.top = 100; // area of shadow
+        directionalLight.shadow.camera.bottom = -100; // area of shadow
         this.scene.add( directionalLight );
 
-<<<<<<< Updated upstream
-        //Create a helper for the shadow camera (optional)
-
-        this.drawSkyBox(this.scene);
-        // create ground object
-        this.startRoom = new RitualRoom(this.scene, this.world, this.renderer);
-=======
         this.drawSkyBox();
         this.drawSkyBox2();
         scene.background = this.sky1;
 
         // Create Ritual room - level 1
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer, -20,0,-20);
->>>>>>> Stashed changes
         this.startRoom.RitualRoom();
         this.firstPlatforms = new Platforms(this.scene, this.world, this.renderer);
         this.firstPlatforms.createStatic();
@@ -75,6 +58,18 @@ export class LevelOne{
         this.Mp1.mesh.castShadow = true;
         this.world.addBody(this.Mp1.body);
         this.scene.add(this.Mp1.mesh);
+
+        params = { 
+            radius: 2,
+            mass: 0,
+            material: new THREE.MeshStandardMaterial({color: 0x404040, wireframe: false})
+        }
+        this.sphere = new Sphere(params);
+        this.sphere.setPosition({x:9, y: 3, z: 25});
+        this.sphere.mesh.receiveShadow = true;
+        this.sphere.mesh.castShadow = true;
+        this.world.addBody(this.sphere.body);
+        this.scene.add(this.sphere.mesh);
 
         let params1 = { 
             scale: {x: 6, y:1, z: 6},
@@ -101,10 +96,6 @@ export class LevelOne{
         this.Mp3.mesh.castShadow = true;
         this.world.addBody(this.Mp3.body);
         this.scene.add(this.Mp3.mesh);
-<<<<<<< Updated upstream
-
-
-=======
         
         let params3 = { 
             scale: {x: 6, y:1, z: 6},
@@ -124,7 +115,6 @@ export class LevelOne{
         // Create Ritual room - level 1
         this.End = new EndRoom(this.scene, this.world, this.renderer, 0,-60, 600);
         this.End.intialize();
->>>>>>> Stashed changes
     }
     drawSkyBox(scene){
         const loader = new THREE.CubeTextureLoader(); 
@@ -163,7 +153,7 @@ export class LevelOne{
     
     update(){ 
         // update positions and rotations of all objects
-        this.Mp1.setPosition({x: Math.sin(Date.now()/1000)*5, y:2, z:74});
+        this.Mp1.setPosition({x: Math.sin(Date.now()/1000)*5, y:-4, z:74});
         this.Mp1.update();
 
         this.Mp2.setPosition({x:-2 , y:-2, z: 85 + Math.sin(Date.now()/950)*6});
@@ -172,8 +162,6 @@ export class LevelOne{
         this.Mp3.setPosition({x: Math.sin(Date.now()/1000)*10, y:2, z:90});
         this.Mp3.update();
         this.startRoom.flicker();
-<<<<<<< Updated upstream
-=======
         this.Corridor.flash();
         console.log(this.player.body.position)
         this.status =1;
@@ -194,7 +182,6 @@ export class LevelOne{
             this.scene.background= this.sky2;       
             this.player.setPosition({x:0, y: -30,z:568});
         }
->>>>>>> Stashed changes
 
         if (this.status == 0){
             this.player.setPosition({x: -15, y: 3, z: -20})
