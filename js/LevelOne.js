@@ -17,14 +17,14 @@ export class LevelOne{
 
         // add directional light
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-        directionalLight.position.set( 0, 10, 10);
+        directionalLight.position.set( 100, 100, 50);
         directionalLight.castShadow = true; // enable shadows
-        directionalLight.shadow.mapSize.width = 2048; // sharpness of shadow
-        directionalLight.shadow.mapSize.height = 2048; // sharpness of shadow
-        directionalLight.shadow.camera.left = -10; // area of shadow
-        directionalLight.shadow.camera.right = 10; // area of shadow
-        directionalLight.shadow.camera.top = 10; // area of shadow
-        directionalLight.shadow.camera.bottom = -10; // area of shadow
+        directionalLight.shadow.mapSize.width = 1024; // sharpness of shadow
+        directionalLight.shadow.mapSize.height = 1024; // sharpness of shadow
+        directionalLight.shadow.camera.left = -100; // area of shadow
+        directionalLight.shadow.camera.right = 100; // area of shadow
+        directionalLight.shadow.camera.top = 100; // area of shadow
+        directionalLight.shadow.camera.bottom = -100; // area of shadow
         this.scene.add( directionalLight );
 
         //Create a helper for the shadow camera (optional)
@@ -49,6 +49,18 @@ export class LevelOne{
         this.Mp1.mesh.castShadow = true;
         this.world.addBody(this.Mp1.body);
         this.scene.add(this.Mp1.mesh);
+
+        params = { 
+            radius: 2,
+            mass: 0,
+            material: new THREE.MeshStandardMaterial({color: 0x404040, wireframe: false})
+        }
+        this.sphere = new Sphere(params);
+        this.sphere.setPosition({x:9, y: 3, z: 25});
+        this.sphere.mesh.receiveShadow = true;
+        this.sphere.mesh.castShadow = true;
+        this.world.addBody(this.sphere.body);
+        this.scene.add(this.sphere.mesh);
 
         let params1 = { 
             scale: {x: 6, y:1, z: 6},
@@ -92,7 +104,7 @@ export class LevelOne{
     }
     update(){ 
         // update positions and rotations of all objects
-        this.Mp1.setPosition({x: Math.sin(Date.now()/1000)*5, y:2, z:74});
+        this.Mp1.setPosition({x: Math.sin(Date.now()/1000)*5, y:-4, z:74});
         this.Mp1.update();
 
         this.Mp2.setPosition({x:-2 , y:-2, z: 85 + Math.sin(Date.now()/950)*6});
@@ -101,6 +113,6 @@ export class LevelOne{
         this.Mp3.setPosition({x: Math.sin(Date.now()/1000)*5, y:2, z:90});
         this.Mp3.update();
 
-
+        this.sphere.update();
     }
 }
