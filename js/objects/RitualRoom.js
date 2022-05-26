@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import {Box} from './Box.js'
+import { Cylinder } from './Cylinder.js';
+import { Models } from './ModelLoader.js';
 
 
 export class RitualRoom{
@@ -8,7 +10,6 @@ export class RitualRoom{
       this.world = world;
       this.renderer = renderer;
       this.texture = new THREE.TextureLoader();
-
     }
     
     RitualRoom(){
@@ -17,19 +18,35 @@ export class RitualRoom{
       this.createWalls('RRWallCentre.jpg',[0, 7, -12.5],[0, Math.PI /2,0]);
       this.createWalls('RRWallLeft.jpg',[-12.5, 7, 0], [ 0,0,0]);
       this.createWalls('RRWallRight.jpg',[12.5, 7, 0],[0,0,0]);
-      // add ambient light inside the actual room
-      const ambientLight = new THREE.AmbientLight( 0x404040, 0.7 ); // soft white light
-      ambientLight.position.set(12,12,12);
-      this. scene.add( ambientLight );
+      //  this.addLight();
+      //this.AddCandle([0,1,0]);
+    //  this.addCustomModels( './assets/RitualRoom/chairs.glb', [0,0,0],[0,0,0],[2,2,2]);
     }
-    AddCandle(){
 
+
+    AddCandle(translation){
+      let params = { 
+        dim: {r1: (1/3), r2: (1/3), h: 1, s:32},
+        mass: 0,
+        position: translation,
+        material: new THREE.MeshPhongMaterial({color: 0xfff4df, specular: 0xfffbeb  , wireframe: false})
     }
-    addLight(){
-      const pointLight = new THREE.pointLight(0xffffff, 1 ) 
-      pointLight.position.set( 0, 10, 10);
-      pointLight.castShadow = true; // enable shadows
-      this.scene.add( pointLight );
+    this.candle = new Cylinder(params);
+    this.candle.mesh.receiveShadow = true;
+    this.candle.mesh.castShadow = true;
+    // enable shadows
+    this.world.addBody(this.candle.body);
+    this.scene.add(this.candle.mesh);
+    }
+
+
+    addCandleLight(){
+      const pointLight = new THREE.PointLight( 0xffffff, 1, 100 ); 
+      pointLight.position.set( 2, 10, 2 ); 
+      this.scene.add( pointLight ); 
+      const sphereSize = 2; 
+      const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize ); 
+      this.scene.add( pointLightHelper );
     }
 
     createFloor(){
@@ -78,6 +95,17 @@ export class RitualRoom{
   
       this.world.addBody(this.wall.body);
       this.scene.add(this.wall.mesh);
+    }
+    addCustomModels(file, pos, rot, size, col){
+      let params = {
+        path :file,
+        position : pos,
+        rotation: rot,
+        scale: size,
+        collision: false
+      }
+      this.model = new Models(params, this.scene);
+      //this.scene.add(this.model.mesh)
     }
 
   }
