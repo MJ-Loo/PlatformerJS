@@ -6,6 +6,7 @@ import * as CANNON from './cannon/cannon-es.js'
 import {Player} from './Player.js'
 import { LevelOne } from './LevelOne.js'
 
+const spotlight = new THREE.SpotLight(0xffffff, 1, 150, Math.PI * 0.1);;
 export class SceneManager{
     constructor(){ // initialize all resources
         this.initializeRenderer();
@@ -44,6 +45,13 @@ export class SceneManager{
             0.1,
             1000
         );
+        //torch initially turned off
+        spotlight.visible = false;
+        this.camera.add(spotlight);
+        this.camera.add(spotlight.target);
+        spotlight.target.position.z = -1;
+        spotlight.target.position.y = 1;
+        spotlight.position.y = 1;        
     }
 
     initializePlayer(){ // player object
@@ -72,6 +80,14 @@ export class SceneManager{
             this.world.step(timeStep);
             this.level.update();
             this.player.update(dt);
+        }
+        //region for level 2 the player needs torch
+        if (!(this.player.body.position.z < 110 || this.player.body.position.z > 190))
+        {
+            spotlight.visible = true;
+        }
+        else {
+            spotlight.visible = false;
         }
         this.renderer.render(this.scene, this.camera);
         this.stats.update();

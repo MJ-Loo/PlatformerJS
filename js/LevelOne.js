@@ -35,7 +35,8 @@ export class LevelOne{
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer);
         this.startRoom.RitualRoom();
         this.firstPlatforms = new Platforms(this.scene, this.world, this.renderer);
-        this.firstPlatforms.createStatic();
+        this.firstPlatforms.createStatic1();
+        this.firstPlatforms.createStatic2();
         
         let params = { 
             scale: {x: 5, y:1, z: 5},
