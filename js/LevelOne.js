@@ -36,7 +36,8 @@ export class LevelOne{
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer, -20,0,-20);
         this.startRoom.RitualRoom();
         this.firstPlatforms = new Platforms(this.scene, this.world, this.renderer);
-        this.firstPlatforms.createStatic();
+        this.firstPlatforms.createStatic1();
+        this.firstPlatforms.createStatic2();
         
         this.texture = new THREE.TextureLoader();
         
