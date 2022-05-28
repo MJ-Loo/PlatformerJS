@@ -27,7 +27,7 @@ export class Platforms{
       //Level 2 start
       //this.StaticPlatforms([16, 1, 500], [30, -1, 100]); //debug platform too lazy to do level 1
       //this.StaticPlatforms([40, 1, 80], [6, 2, 50]); //debug platform
-      this.StaticPlatforms([50,1,50], [2,-28,35]) //debug platforms
+      //this.StaticPlatforms([10,1,500], [-4,-2,35]) //debug platforms
       
       this.StaticPlatforms([10, 1, 5], [10, -1, 100]); //landing platform
       this.StaticPlatforms([1, 14, 20], [5.5, 0, 105]);//right side wall
@@ -35,9 +35,9 @@ export class Platforms{
       this.StaticPlatforms([10, 8, 9.5], [10, 2, 110.25]); //front wall
       this.StaticPlatforms([10, 21, 1], [10, -12, 98]); //back wall
       this.StaticPlatforms([10, 1, 20], [10, -7, 108]); //level floor
-      this.StaticPlatforms([9, 1, 100], [10, -2, 156]); //ceiling
-      this.StaticPlatforms([1, 20, 111], [14.5, -12, 154]); //corridor (left)
-      this.StaticPlatforms([1, 20, 111], [5.5, -12, 154]); //corridor (right)
+      this.StaticPlatforms([10, 1, 100], [10, -2, 156]); //ceiling
+      this.StaticPlatforms([0.5, 20, 111], [14.75, -12, 154]); //corridor (left)
+      this.StaticPlatforms([0.5, 20, 111], [5.25, -12, 154]); //corridor (right)
       this.StaticPlatforms([10, 1, 111], [10, -22, 154]); //floor (void)
       this.StaticPlatforms([11, 20.5, 1], [10, -12.25, 210]); //end wall
       this.StaticPlatforms([0.3, 0.5, 10], [11, -7, 120]); //first platform
@@ -48,8 +48,8 @@ export class Platforms{
       this.StaticPlatforms([5, 0.4, 0.2], [10, -6, 135]);
       this.StaticPlatforms([5, 0.4, 0.2], [10, -6, 145]);
       this.StaticPlatforms([3, 0.2, 0.1], [12, -7, 150]);
-      this.StaticPlatforms([0.1, 0.2, 20], [9, -6, 155]);
-      this.StaticPlatforms([0.1, 0.2, 14], [13, -7, 158]);
+      this.StaticPlatforms([0.1, 0.2, 20], [8.5, -6, 155]);
+      this.StaticPlatforms([0.1, 0.2, 14], [11.5, -7, 158]);
       this.StaticPlatforms([8, 0.2, 0.1], [10, -6, 165]);
       this.StaticPlatforms([0.01, 0.01, 20], [10, -6, 175]);
       this.StaticPlatforms([5, 1, 25], [10, -6, 196]);
