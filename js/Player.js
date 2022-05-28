@@ -1,11 +1,25 @@
 import * as CANNON from './cannon/cannon-es.js'
 import { PointerLockControlsCannon } from './cannon/PointerLockControlsCannon.js'
+import * as THREE from 'three';
 
 export class Player{
     constructor(params){
-        this.camera = params.camera;
-        this.initializeBody();
-    }
+      this.camera = params.camera;
+      this.initializeSpotlight();
+      this.initializeBody();
+  }
+  
+  initializeSpotlight()
+  {
+    //torch initially turned off
+    this.spotlight = new THREE.SpotLight(0xffffff, 1, 150, Math.PI * 0.1);
+    this.spotlight.visible = false;
+    this.camera.add(this.spotlight);
+    this.camera.add(this.spotlight.target);
+    this.spotlight.target.position.z = -1;
+    this.spotlight.target.position.y = 1;
+    this.spotlight.position.y = 1;  
+  }
 
     initializeBody(){ // creates a sphere that acts as the body for the player (for collisions)
         this.radius = 1.3;
