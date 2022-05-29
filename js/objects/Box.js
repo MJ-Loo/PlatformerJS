@@ -10,9 +10,6 @@ export class Box{
         const mass = params.mass;
         const position = params.position;
         const rotation = params.rotation;
-        //for moving box
-        this.movable = false;
-        this.timestep = 0; 
 
         // three
         this.createThreeMesh(scale, material,position,rotation);

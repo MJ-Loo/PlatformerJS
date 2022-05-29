@@ -7,7 +7,7 @@ export class Models{
         this.params = params;
         const path = params.path;
         const position = params.position;
-        const rotation = params.position;
+        const rotation = params.rotation;
         const scale = params.scale;
         const collision = params.collision;
         const scene = _scene
@@ -20,7 +20,7 @@ export class Models{
             console.log(gltf)
             const mesh = gltf.scene;
             mesh.scale.set(scale[0], scale[1], scale[2]); //scale vector as proportional to scene x y z vector
-            mesh.position.set( position[0],position[1],position[2]);  //vector of x y z translation
+            mesh.position.set( position.x,position.y,position.z);  //vector of x y z translation
             mesh.rotation.set(rotation[0],rotation[1],rotation[2]); //vector of x y z rotation
             scene.add(mesh);
         }, function(xhr){
