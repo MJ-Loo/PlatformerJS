@@ -28,8 +28,7 @@ export class LevelOne{
         this.scene.add( directionalLight );
 
         //Create a helper for the shadow camera (optional)
-        const helper = new THREE.CameraHelper( directionalLight.shadow.camera );
-        scene.add( helper );
+
         this.drawSkyBox(this.scene);
         // create ground object
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer);
@@ -38,12 +37,19 @@ export class LevelOne{
         this.firstPlatforms.createStatic1();
         this.firstPlatforms.createStatic2();
         
+        this.texture = new THREE.TextureLoader();
+        const platform_texture = this.texture.load('./assets/RitualRoom/tiles.png');
+        const maxAnisotropy = this.renderer.capabilities.getMaxAnisotropy();
+        platform_texture.anisotropy = maxAnisotropy;
+        platform_texture.wrapS = THREE.RepeatWrapping;
+        platform_texture.wrapT = THREE.RepeatWrapping;
+        platform_texture.encoding = THREE.sRGBEncoding;
         let params = { 
             scale: {x: 5, y:1, z: 5},
             mass: 0,
             position: [5,2,74],
             rotation: {x:0, y:0,z:0},
-            material: new THREE.MeshStandardMaterial({color: 0x404040, wireframe: false})
+            material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
         this.Mp1 = new Box(params);
         this.Mp1.mesh.receiveShadow = true;
@@ -68,7 +74,7 @@ export class LevelOne{
             mass: 0,
             position: [-2,-2,85],
             rotation: {x:0, y:0,z:0},
-            material: new THREE.MeshStandardMaterial({color: 0x404040, wireframe: false})
+            material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
         this.Mp2 = new Box(params1);
         this.Mp2.mesh.receiveShadow = true;
@@ -81,7 +87,7 @@ export class LevelOne{
             mass: 0,
             position: [5,4,90],
             rotation: {x:0, y:0,z:0},
-            material: new THREE.MeshStandardMaterial({color: 0x404040, wireframe: false})
+            material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
         this.Mp3 = new Box(params2);
         this.Mp3.mesh.receiveShadow = true;
@@ -111,9 +117,11 @@ export class LevelOne{
         this.Mp2.setPosition({x:-2 , y:-2, z: 85 + Math.sin(Date.now()/950)*6});
         this.Mp2.update();
 
-        this.Mp3.setPosition({x: Math.sin(Date.now()/1000)*5, y:2, z:90});
+        this.Mp3.setPosition({x: Math.sin(Date.now()/1000)*10, y:2, z:90});
         this.Mp3.update();
 
         this.sphere.update();
+        this.startRoom.flicker();
+
     }
 }
