@@ -8,24 +8,25 @@ import { Corridor } from './objects/Corridor.js';
 import {EndRoom} from './objects/End.js'
 
 export class LevelOne{
-    constructor(scene, world, renderer){
+    constructor(scene, world, renderer, playerBody){
         this.scene = scene;
         this.world = world;
-        this.renderer = renderer
+        this.renderer = renderer;
+        this.playerBody = playerBody;
         // add ambient light
         this.ambientLight = new THREE.AmbientLight( 0x404040, 2 ); // soft white light
         scene.add( this.ambientLight );
 
         // add directional light
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-        directionalLight.position.set( 100, 100, 50);
+        directionalLight.position.set( -10, 100, 0);
         directionalLight.castShadow = true; // enable shadows
         directionalLight.shadow.mapSize.width = 1024; // sharpness of shadow
         directionalLight.shadow.mapSize.height = 1024; // sharpness of shadow
-        directionalLight.shadow.camera.left = -100; // area of shadow
-        directionalLight.shadow.camera.right = 100; // area of shadow
-        directionalLight.shadow.camera.top = 100; // area of shadow
-        directionalLight.shadow.camera.bottom = -100; // area of shadow
+        directionalLight.shadow.camera.left = -300; // area of shadow
+        directionalLight.shadow.camera.right = 300; // area of shadow
+        directionalLight.shadow.camera.top = 300; // area of shadow
+        directionalLight.shadow.camera.bottom = -300; // area of shadow
         this.scene.add( directionalLight );
 
         this.drawSkyBox();
@@ -35,10 +36,7 @@ export class LevelOne{
         // Create Ritual room - level 1
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer, -20,0,-20);
         this.startRoom.RitualRoom();
-        this.firstPlatforms = new Platforms(this.scene, this.world, this.renderer);
-        this.firstPlatforms.createStatic1();
-        this.firstPlatforms.createStatic2();
-        
+        // create moving platforms for level 1
         this.texture = new THREE.TextureLoader();
         
         const platform_texture = this.texture.load('./assets/RitualRoom/tiles.png');
@@ -50,7 +48,7 @@ export class LevelOne{
         let params = { 
             scale: {x: 5, y:1, z: 5},
             mass: 0,
-            position: [5,2,74],
+            position: [-20,2,72],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
@@ -59,23 +57,10 @@ export class LevelOne{
         this.Mp1.mesh.castShadow = true;
         this.world.addBody(this.Mp1.body);
         this.scene.add(this.Mp1.mesh);
-
-        params = { 
-            radius: 2,
-            mass: 0,
-            material: new THREE.MeshStandardMaterial({color: 0x404040, wireframe: false})
-        }
-        this.sphere = new Sphere(params);
-        this.sphere.setPosition({x:9, y: 3, z: 25});
-        this.sphere.mesh.receiveShadow = true;
-        this.sphere.mesh.castShadow = true;
-        this.world.addBody(this.sphere.body);
-        this.scene.add(this.sphere.mesh);
-
         let params1 = { 
             scale: {x: 6, y:1, z: 6},
             mass: 0,
-            position: [-2,-2,85],
+            position: [-23,-2,85],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
@@ -86,9 +71,9 @@ export class LevelOne{
         this.scene.add(this.Mp2.mesh);
 
         let params2 = { 
-            scale: {x: 3, y:1, z: 3},
+            scale: {x: 4, y:1, z: 4},
             mass: 0,
-            position: [5,4,90],
+            position: [0,4,90],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
@@ -113,7 +98,7 @@ export class LevelOne{
         // make the corridor section - level 2
         this.Corridor = new Corridor(this.scene, this.world, this.renderer, -13, 15,120);
 
-        // Create Ritual room - level 1
+        // Create End room - level 3
         this.End = new EndRoom(this.scene, this.world, this.renderer, 0,-60, 600);
         this.End.intialize();
     }
@@ -154,13 +139,15 @@ export class LevelOne{
     
     update(){ 
         // update positions and rotations of all objects
-        this.Mp1.setPosition({x: Math.sin(Date.now()/1000)*5, y:-4, z:74});
+        
+
+        this.Mp1.setPosition({x: -6+ Math.sin(Date.now()/1000)*5, y:-4, z:76});
         this.Mp1.update();
 
-        this.Mp2.setPosition({x:-2 , y:-2, z: 85 + Math.sin(Date.now()/950)*6});
+        this.Mp2.setPosition({x:-20 , y:-2, z: 90 + Math.sin(Date.now()/950)*6});
         this.Mp2.update();
 
-        this.Mp3.setPosition({x: Math.sin(Date.now()/1000)*10, y:2, z:90});
+        this.Mp3.setPosition({x:-10+ Math.sin(Date.now()/1000)*6, y:2, z:95});
         this.Mp3.update();
         this.startRoom.flicker();
         this.Corridor.flash();

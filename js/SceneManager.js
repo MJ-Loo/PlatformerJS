@@ -52,11 +52,7 @@ export class SceneManager{
             mass: 20
         }
         this.player = new Player(params);
-<<<<<<< Updated upstream
-        this.player.setPosition({x: 0, y: 5, z: 0});
-=======
         this.player.setPosition({x: -10, y: 18, z: 227});
->>>>>>> Stashed changes
         this.world.addBody(this.player.body);
         this.scene.add(this.player.controls.getObject());
     }
