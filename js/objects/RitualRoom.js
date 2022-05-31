@@ -7,64 +7,67 @@ import { Models } from './ModelLoader.js';
 
 
 export class RitualRoom{
-    constructor(scene, world, renderer){
+    constructor(scene, world, renderer,x,y,z){
       this.scene = scene;
       this.world = world;
       this.renderer = renderer;
       this.texture = new THREE.TextureLoader();
-      this.x = 0;
-      this.y=0;
-      this.z =0;      
+      this.x = x;
+      this.y=y;
+      this.z =z;      
       
       this.candleLight1 = new THREE.PointLight( 0xffd07d, 2, 10 );
-      this.candleLight1.position.set( 2.5, 2,7.3);
+      this.candleLight1.position.set(  this.x+2.5,this.y+2,this.z+7.3);
       this.scene.add(this.candleLight1);
 
       this.candleLight2 = new THREE.PointLight( 0xffb87d, 2, 10 );
-      this.candleLight2.position.set( 0, 2,-6.3);
+      this.candleLight2.position.set(   this.x, this.y+2,this.z-6.3);
       this.scene.add(this.candleLight2);
 
       
       this.candleLight3 = new THREE.PointLight( 0xffd180, 2, 10 );
-      this.candleLight3.position.set( -4.2,2,6.8);
+      this.candleLight3.position.set(   this.x-4.2,this.y+2,this.z+6.8);
       this.scene.add(this.candleLight3);
 
       this.candleLight4 = new THREE.PointLight( 0xff6726, 2, 10 );
-      this.candleLight4.position.set( 7.6,2,-0.7);
+      this.candleLight4.position.set(   this.x +7.6,this.y+2,this.z-0.7);
       this.scene.add(this.candleLight4);
 
-      this.candleLight5 = new THREE.PointLight( 0xfff5e3, 2, 10 );
-      this.candleLight5.position.set(-5.6,2,-2.7);
+      this.candleLight5 = new THREE.PointLight( 0xfff5e3, 2,this.z+ 10 );
+      this.candleLight5.position.set(  this.x-5.6,this.y+2,this.z-2.7);
       this.scene.add(this.candleLight5);
     }
     
     RitualRoom(){
-      this.createWalls('RRfloor.jpg',[ 25, 1, 25],[0,0,0],[0, 0,0]);
-      this.createWalls('ceiling.png',[ 25, 1, 25],[0,15,0],[0,0,0]);
+      // create floor and ceiling
+      this.createWalls('RRfloor.jpg',[ 25, 1, 25],[  this.x,  this.y,this.z],[0, 0,0]);
+      this.createWalls('ceiling.png',[ 25, 1, 25],[  this.x,this.y+15,this.z],[0,0,0]);
 
       // create walls 
-      this.createWalls('RRWallCentre.jpg',[2,15,25],[0, 7, -12.5],[0, Math.PI /2,0]);
-      this.createWalls('RRWallLeft.jpg',[2,15,25],[-12.5, 7, 0], [ 0,0,0]);
-      this.createWalls('RRWallRight.jpg',[2,15,25],[12.5, 7, 0],[0,0,0]);
-      this.createWalls('RRWallDoorRight.jpg',[2,15,10],[-8,7,12.5],[0, Math.PI /2,0]);
-      this.createWalls('RRWallDoorLeft.jpg',[2,15,10],[8,7,12.5],[0, Math.PI /2,0]);
-      this.createWalls('RRWallAboveDoor.jpg',[2,8,6],[0,10.7,12.5],[0, Math.PI /2,0]);
+      this.createWalls('RRWallCentre.jpg',[2,15,25],[  this.x, this.y+7,this.z -12.5],[0, Math.PI /2,0]);
+      this.createWalls('RRWallLeft.jpg',[2,15,25],[  this.x-12.5, this.y+7, this.z], [ 0,0,0]);
+      this.createWalls('RRWallRight.jpg',[2,15,25],[  this.x+12.5, this.y+7, this.z],[0,0,0]);
+      this.createWalls('RRWallDoorRight.jpg',[2,15,10],[  this.x-8,this.y+7,this.z+12.5],[0, Math.PI /2,0]);
+      this.createWalls('RRWallDoorLeft.jpg',[2,15,10],[  this.x+8,this.y+7,this.z+12.5],[0, Math.PI /2,0]);
+      this.createWalls('RRWallAboveDoor.jpg',[2,8,6],[  this.x,this.y+10.7,this.z+12.5],[0, Math.PI /2,0]);
 
-      this.createWalls('door.png',[6,1,10],[0,0,18],[0, Math.PI ,0]);
+      this.createWalls('door.png',[6,1,10],[this.x,this.y,this.z+18],[0, Math.PI ,0]);
 
-      this.AddCandle([2.5,1,7.3]);
-      this.AddCandle([0,1,-6.3]);
-      this.AddCandle([-4.2,1,6.8]);
-      this.AddCandle([7.6,1,-0.7]);
-      this.AddCandle([-5.6,1,-2.7]);
+      this.AddCandle([  this.x+2.5,this.y+ 1, this.z+7.3]);
+      this.AddCandle([  this.x,this.y+1,this.z-6.3]);
+      this.AddCandle([  this.x-4.2,this.y+1,this.z+6.8]);
+      this.AddCandle([  this.x+7.6,this.y+1,this.z-0.7]);
+      this.AddCandle([  this.x-5.6,this.y+1,this.z-2.7]);
       
       const light = new THREE.AmbientLight( 0x7a0b1a); // soft white light
       light.intensity =0.6;
       this.scene.add(light);
 
+      this.createStatic(this.x,this.y,this.z+32)
+
     }
 
-
+    // create the base of candle
     AddCandle(translation){
       let params = { 
         dim: {r1: (1/4), r2: (1/4), h: 1, s:32},
@@ -78,7 +81,7 @@ export class RitualRoom{
       // enable shadows
       this.world.addBody(this.candle.body);
       this.scene.add(this.candle.mesh);
-      this.addCandleLight(translation);
+      this.addCandleLight(translation); // make the flame with a sphere and cone
     }
 
     addCandleLight(translation){
@@ -134,7 +137,7 @@ export class RitualRoom{
       }
       this.model = new Models(params, this.scene, this.world);
     }
-
+    // flicker for the candle point light - called in update
     flicker(){
       this.candleLight1.intensity = Math.sin(Date.now()/300)+3;
       this.candleLight1.distance = Math.sin(Date.now()/500)+14;
@@ -151,7 +154,45 @@ export class RitualRoom{
 
       this.candleLight5.intensity = Math.sin(Date.now()/300)+4;
       this.candleLight5.distance = Math.sin(Date.now()/190)+13 ;
+    }
+
+    createStatic(x,y,z){
+      this.StaticPlatforms([7,1,7],[x-5,y+1,z]);
+      this.StaticPlatforms([4,1,4],[x+4,y-1,z+10]);
+      this.StaticPlatforms([5,1,5],[x-6,y,z+16]);
+      this.StaticPlatforms([6,1,6],[x,y-2,z+24]);
+      this.StaticPlatforms([5,1,5],[x+1,y-1,z+32]);
+      this.StaticPlatforms([5,1,5],[x+5,y+1,z+39]);
+      this.StaticPlatforms([5,1,5],[x-4,y+2,z+46]);
+      this.StaticPlatforms([5,1,5],[x+6,y-2,z+55]);
+      this.StaticPlatforms([5,1,5],[x-5,y-3,z+67]);
+      this.StaticPlatforms([5,1,5],[x+10,y-4,z+76]);
+      this.StaticPlatforms([5,1,5],[x-6,y+1,z+90]);
+      this.StaticPlatforms([5,1,5],[x+2,y+4,z+92]);
+      this.StaticPlatforms([5,1,5],[x+12,y+4,z+100]);
 
     }
+
+    StaticPlatforms(scale,position){ 
+      const platform_texture = this.texture.load('./assets/RitualRoom/tiles.png');
+      const maxAnisotropy = this.renderer.capabilities.getMaxAnisotropy();
+      platform_texture.anisotropy = maxAnisotropy;
+      platform_texture.wrapS = THREE.RepeatWrapping;
+      platform_texture.wrapT = THREE.RepeatWrapping;
+      platform_texture.encoding = THREE.sRGBEncoding;
+      let params = { 
+          scale: {x:scale[0], y:scale[1], z: scale[2]},
+          mass: 0,
+          position: position,
+          rotation: {x:0, y:0,z:0},
+          material: new THREE.MeshStandardMaterial({map: platform_texture, color: 0x404040, wireframe: false})
+      }
+      this.platform = new Box(params);
+      this.platform.mesh.receiveShadow = true;
+      this.platform.mesh.castShadow = true;
+      this.world.addBody(this.platform.body);
+      this.scene.add(this.platform.mesh);
+    }
+
 
   }
