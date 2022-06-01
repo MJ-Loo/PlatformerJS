@@ -26,10 +26,10 @@ export class Corridor{
 
       // corridor second section
       this.StaticPlatforms([12, 30, 0.2], [this.x-11, this.y+5, this.z+24] ,[0,0,0],'Cwalllong.jpg');
-      this.StaticPlatforms([12, 30, 0.2], [this.x+11, this.y+5, this.z+24] ,[0,0,0],'Cwalllong.jpg');    
+      this.StaticPlatforms([12, 30, 0.2], [this.x+11, this.y+5, this.z+24] ,[0,0,0],'Cwalllong2.jpg');    
       this.StaticPlatforms([10, 10, 0.2], [this.x, this.y-5, this.z+24] ,[0,0,0],'Cwalllong.jpg');
       this.StaticPlatforms([0.2, 30, 68], [this.x-17, this.y, this.z+58] ,[0,0,0],'Cwalllong.jpg');
-      this.StaticPlatforms([0.2, 30, 68], [this.x+17, this.y, this.z+58],[0,0,0] ,'Cwalllong.jpg');
+      this.StaticPlatforms([0.2, 30, 68], [this.x+17, this.y, this.z+58],[0,0,0] ,'Cwalllong2.jpg');
       this.StaticPlatforms([34, 0.2, 68], [this.x, this.y-10, this.z+58],[0,0,0], 'corridorfloor.jpg' );
       this.StaticPlatforms([34, 0.2, 68], [this.x, this.y+10, this.z+58],[0,0,0], 'corridorceling.jpg' );
       this.platforms();
