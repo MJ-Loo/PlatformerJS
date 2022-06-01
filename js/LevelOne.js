@@ -97,7 +97,7 @@ export class LevelOne{
         this.playerBody.addEventListener("collide",function(e){
 
             console.log("The sphere just collided with obj" + e.body.id);
-            if (e.body.id = 48) {
+            if (e.body.id == 48) {
                 console.log("The sphere just collided with obj 48");
             }
         });
