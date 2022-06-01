@@ -68,7 +68,7 @@ export class SceneManager{
     }
 
     loadScene(){ // select level (work in progress, will take in parameter and select correct level)
-        this.level = new LevelOne(this.scene, this.world, this.renderer);
+        this.level = new LevelOne(this.scene, this.world, this.renderer, this.player);
     }
 
     update() { // game update
