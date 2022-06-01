@@ -10,11 +10,21 @@ export class SceneManager{
     constructor(){ // initialize all resources
         this.initializeRenderer();
         this.initializeScene();
+        //this.initializeFog();
         this.initializeWorld();
         this.initializeStats();
         this.initializeCamera();
         this.initializePlayer();
         this.lastCallTime = performance.now() / 1000; // needed to get delta for time based movement
+    }
+
+    initializeFog() {
+        
+        const near = 80;
+        const far = 10;
+        const color = 'black';
+        //this.scene.fog = new THREE.Fog(color, near, far);
+        this.scene.fog = new THREE.FogExp2(0xFFFFFF,0.3);
     }
     
     initializeRenderer(){
