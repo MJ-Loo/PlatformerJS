@@ -4,7 +4,12 @@ import {Box} from './objects/Box.js'
 import { Sphere } from './objects/Sphere.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders/GLTFLoader.js';
 import { RitualRoom } from './objects/RitualRoom.js';
+<<<<<<< Updated upstream
 import { Platforms } from './objects/Platforms.js';
+=======
+import { Corridor } from './objects/Corridor.js';
+import {EndRoom} from './objects/End.js'
+>>>>>>> Stashed changes
 
 export class LevelOne{
     constructor(scene, world, renderer){
@@ -12,8 +17,13 @@ export class LevelOne{
         this.world = world;
         this.renderer = renderer
         // add ambient light
+<<<<<<< Updated upstream
         const ambientLight = new THREE.AmbientLight( 0x404040, 0.5 ); // soft white light
         scene.add( ambientLight );
+=======
+        this.ambientLight = new THREE.AmbientLight( 0x404040, 2 ); // soft white light
+        scene.add( this.ambientLight );
+>>>>>>> Stashed changes
 
         // add directional light
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -27,16 +37,26 @@ export class LevelOne{
         directionalLight.shadow.camera.bottom = -10; // area of shadow
         this.scene.add( directionalLight );
 
+<<<<<<< Updated upstream
         //Create a helper for the shadow camera (optional)
 
         this.drawSkyBox(this.scene);
         // create ground object
         this.startRoom = new RitualRoom(this.scene, this.world, this.renderer);
+=======
+        this.drawSkyBox();
+        this.drawSkyBox2();
+        scene.background = this.sky1;
+
+        // Create Ritual room - level 1
+        this.startRoom = new RitualRoom(this.scene, this.world, this.renderer, -20,0,-20);
+>>>>>>> Stashed changes
         this.startRoom.RitualRoom();
         this.firstPlatforms = new Platforms(this.scene, this.world, this.renderer);
         this.firstPlatforms.createStatic();
         
         this.texture = new THREE.TextureLoader();
+        
         const platform_texture = this.texture.load('./assets/RitualRoom/tiles.png');
         const maxAnisotropy = this.renderer.capabilities.getMaxAnisotropy();
         platform_texture.anisotropy = maxAnisotropy;
@@ -81,12 +101,34 @@ export class LevelOne{
         this.Mp3.mesh.castShadow = true;
         this.world.addBody(this.Mp3.body);
         this.scene.add(this.Mp3.mesh);
+<<<<<<< Updated upstream
 
 
+=======
+        
+        let params3 = { 
+            scale: {x: 6, y:1, z: 6},
+            mass: 0,
+            position: [0,4,90],
+            rotation: {x:0, y:0,z:0},
+            material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
+        }
+        this.Mp4 = new Box(params3);
+        this.Mp4.mesh.receiveShadow = true;
+        this.Mp4.mesh.castShadow = true;
+        this.world.addBody(this.Mp4.body);
+        this.scene.add(this.Mp4.mesh);
+        // make the corridor section - level 2
+        this.Corridor = new Corridor(this.scene, this.world, this.renderer, -13, 15,120);
+
+        // Create Ritual room - level 1
+        this.End = new EndRoom(this.scene, this.world, this.renderer, 0,-60, 600);
+        this.End.intialize();
+>>>>>>> Stashed changes
     }
     drawSkyBox(scene){
         const loader = new THREE.CubeTextureLoader(); 
-        const texture = loader.load([
+        this.sky1 = loader.load([
           './assets/skybox/posx.jpg',
           './assets/skybox/negx.jpg',
           './assets/skybox/posy.jpg',
@@ -94,8 +136,31 @@ export class LevelOne{
           './assets/skybox/posz.jpg',
           './assets/skybox/negz.jpg',
           ]);
-         scene.background = texture;
     }
+    drawSkyBox2(scene){
+        const loader = new THREE.CubeTextureLoader(); 
+        this.sky2 = loader.load([
+          './assets/skybox/rightposx.jpg',
+          './assets/skybox/leftnegx.jpg',
+          './assets/skybox/topposy.jpg',
+          './assets/skybox/botnegy.jpg',
+          './assets/skybox/frontposz.jpg',
+          './assets/skybox/backnegz.jpg',
+          ]);
+         
+    }
+    fakeTop(){
+    
+        const texture = this.texture.load('./assets/skybox/topposy.jpg');
+    
+        const geometry = new THREE.PlaneGeometry( 1000, 1000 );
+        const material = new THREE.MeshBasicMaterial( {map: texture,color: 0xffffff, side: THREE.FrontSide} );
+        
+        this.plane = new THREE.Mesh( geometry, material );
+        this.plane.rotation.x= Math.PI/2;
+        this.scene.add( this.plane );
+    }
+    
     update(){ 
         // update positions and rotations of all objects
         this.Mp1.setPosition({x: Math.sin(Date.now()/1000)*5, y:2, z:74});
@@ -107,6 +172,34 @@ export class LevelOne{
         this.Mp3.setPosition({x: Math.sin(Date.now()/1000)*10, y:2, z:90});
         this.Mp3.update();
         this.startRoom.flicker();
+<<<<<<< Updated upstream
+=======
+        this.Corridor.flash();
+        console.log(this.player.body.position)
+        this.status =1;
+        if (this.player.body.position.y<-20 && this.player.body.position.z < 244 ) {
+            this.status = 0
+        }    
+        if (!(this.player.body.position.z < 135 || this.player.body.position.z > 220)) {
+            this.player.spotlight.visible = true;
+            if (this.player.body.position.y<6.5 ) {
+                this.status =0
+            }
+        }
+        else {
+            this.player.spotlight.visible = false;
+        } 
+        
+        if (this.player.body.position.z >244 &&this.player.body.position.y >15 ) {
+            this.scene.background= this.sky2;       
+            this.player.setPosition({x:0, y: -30,z:568});
+        }
+>>>>>>> Stashed changes
 
+        if (this.status == 0){
+            this.player.setPosition({x: -15, y: 3, z: -20})
+            console.log("you lose!");
+            this.scene.background= this.sky1;        
+        }
     }
 }
