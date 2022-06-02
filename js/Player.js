@@ -36,7 +36,13 @@ export class Player{
     initPointerLock() {
         this.controls = new PointerLockControlsCannon(this.camera, this.body);
 
-        instructions.addEventListener('click', () => {
+        btnRestart.addEventListener('click', () => {
+          this.resetPosition();
+          this.controls.lock();
+        })
+
+        //Resume and Pause Game
+        btnResume.addEventListener('click', () => {
           this.controls.lock();
         })
 
@@ -56,6 +62,10 @@ export class Player{
 
     setPosition(position){
         this.body.position.set(position.x, position.y, position.z);
+    }
+
+    resetPosition(){
+      this.setPosition({x: -15, y: 3, z: -20});
     }
 
     update(dt){
