@@ -36,7 +36,13 @@ export class Player{
     initPointerLock() {
         this.controls = new PointerLockControlsCannon(this.camera, this.body);
 
-        instructions.addEventListener('click', () => {
+        btnRestart.addEventListener('click', () => {
+          this.resetPosition();
+          this.controls.lock();
+        })
+
+        //Resume and Pause Game
+        btnResume.addEventListener('click', () => {
           this.controls.lock();
         })
 
@@ -58,6 +64,10 @@ export class Player{
         this.body.position.set(position.x, position.y, position.z);
     }
 
+    resetPosition(){
+      this.setPosition({x: -15, y: 3, z: -20});
+    }
+
     update(dt){
         //Restart level when player has fallen to y=-30
       if (this.body.position.y<-20) {
@@ -70,7 +80,7 @@ export class Player{
         this.spotlight.visible = true;
         
         if (this.body.position.y<6.5 ) {
-          this.setPosition({x: -15, y: 3, z: -20})
+          this.resetPosition();
           console.log("you lose!")
       }
       }
