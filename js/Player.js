@@ -21,7 +21,14 @@ export class Player{
     initPointerLock() {
         this.controls = new PointerLockControlsCannon(this.camera, this.body);
 
-        instructions.addEventListener('click', () => {
+        restart.addEventListener('click', () => {
+          this.resetPostition();
+          this.controls.lock();
+        })
+
+
+        //Pause and Resume
+        resume.addEventListener('click', () => {
           this.controls.lock();
         })
 
@@ -40,10 +47,14 @@ export class Player{
         this.body.position.set(position.x, position.y, position.z);
     }
 
+    resetPostition(){
+      this.setPosition({x: 0, y: 2, z: 0})
+    }
+
     update(dt){
         //Restart level when player has fallen to y=-30
         if (this.body.position.y<-20) {
-          this.setPosition({x: 0, y: 2, z: 0})
+          this.resetPostition()
           console.log("you lose!")
         }
         if (this.body.position.z > 90){

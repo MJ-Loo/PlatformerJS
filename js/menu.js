@@ -81,3 +81,4 @@ document.onmousemove = function (event) {
   body.style.setProperty("--y", pointerY);
   body.style.setProperty("--total", Math.abs(pointerX) + Math.abs(pointerY));
 };
+
