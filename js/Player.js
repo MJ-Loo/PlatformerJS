@@ -12,12 +12,14 @@ export class Player{
   initializeSpotlight()
   {
     //torch initially turned off
-    this.spotlight = new THREE.SpotLight(0xffffff, 5, 150, Math.PI * 0.1);
-    this.spotlight.position.y = 0;
+    this.spotlight = new THREE.SpotLight(0xffffff, 5, 30, Math.PI * 0.1,0.4, 0.2);
     this.spotlight.visible = false;
+    this.spotlight.castShadow = true; 
     this.camera.add(this.spotlight);
     this.camera.add(this.spotlight.target);
-    this.spotlight.target.position.z = -1;  
+    this.spotlight.target.position.z = -2;
+    this.spotlight.target.position.y = 2;
+    this.spotlight.position.y = 1;  
   }
 
     initializeBody(){ // creates a sphere that acts as the body for the player (for collisions)

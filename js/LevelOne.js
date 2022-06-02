@@ -8,11 +8,11 @@ import { Corridor } from './objects/Corridor.js';
 import {EndRoom} from './objects/End.js'
 
 export class LevelOne{
-    constructor(scene, world, renderer, playerBody){
+    constructor(scene, world, renderer, player){
         this.scene = scene;
         this.world = world;
         this.renderer = renderer;
-        this.playerBody = playerBody;
+        this.player = player;
         // add ambient light
         this.ambientLight = new THREE.AmbientLight( 0x404040, 2 ); // soft white light
         scene.add( this.ambientLight );
