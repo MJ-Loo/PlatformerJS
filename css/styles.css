@@ -1,7 +1,5 @@
 body {
   margin:0;
-  background: url(https://assets.codepen.io/t-1/shapelined-Z1xxfm52Htc-unsplash.jpg) no-repeat center center fixed;
-  height: 100vh;
   overflow: hidden;
 }
 html {
@@ -24,7 +22,6 @@ canvas {
   position: fixed;
   left: 0;
   top: 0;
-
   width: 100%;
   height: 100%;
 
@@ -32,7 +29,6 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   background-color: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   text-align: center;
@@ -42,34 +38,6 @@ canvas {
 #instructions span {
   font-size: 40px;
 }
-
-
-body:after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: inherit;
-  z-index: -2;
-  filter: saturate(0);
-  mix-blend-mode: darken;
-}
-body:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  pointer-events: auto;
-  filter: contrast(270%) brightness(2000%) saturate(0);
-  z-index: -1;
-  background-image: radial-gradient(circle at calc(50% - (var(--x) * -25px)) calc(50% - (var(--y) * -25px)), transparent calc(50px - (var(--total) * -50px)), #000 700px), url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4.24' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-size: 100% 100%, 200px;
-}
-
 
 body.loaded #container:before {
   opacity: 0;
@@ -292,7 +260,7 @@ body.loaded #container:before {
   filter: blur(5px);
 }
 #container .buttons button:hover, #container .buttons button.active {
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.519);
   color: rgba(255, 255, 255, 0.75);
   -webkit-text-stroke: 1.5px transparent;
   background: rgba(255, 255, 255, 0.75);
@@ -465,7 +433,7 @@ body.loaded #container:before {
   mix-blend-mode: darken;
 }
 #container > p > span:before {
-  -webkit-text-fill-color: #222;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.681);
   transform-style: preserve-3d;
   content: attr(data-word);
   color: #222;
