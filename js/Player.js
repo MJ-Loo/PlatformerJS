@@ -12,12 +12,14 @@ export class Player{
   initializeSpotlight()
   {
     //torch initially turned off
-    this.spotlight = new THREE.SpotLight(0xffffff, 5, 150, Math.PI * 0.1);
-    this.spotlight.position.y = 0;
+    this.spotlight = new THREE.SpotLight(0xffffff, 5, 30, Math.PI * 0.1,0.4, 0.2);
     this.spotlight.visible = false;
+    this.spotlight.castShadow = true; 
     this.camera.add(this.spotlight);
     this.camera.add(this.spotlight.target);
-    this.spotlight.target.position.z = -1;  
+    this.spotlight.target.position.z = -2;
+    this.spotlight.target.position.y = 2;
+    this.spotlight.position.y = 1;  
   }
 
     initializeBody(){ // creates a sphere that acts as the body for the player (for collisions)
@@ -58,19 +60,28 @@ export class Player{
 
     update(dt){
         //Restart level when player has fallen to y=-30
-        if (this.body.position.y<-20) {
+      if (this.body.position.y<-20) {
           this.setPosition({x: -15, y: 3, z: -20})
           console.log("you lose!")
-        }
+      }
+
       //region for level 2 the player needs torch
-      if (!(this.body.position.z < 130 || this.body.position.z > 210)) {
+      if (!(this.body.position.z < 135 || this.body.position.z > 210)) {
         this.spotlight.visible = true;
+        
+        if (this.body.position.y<6.5 ) {
+          this.setPosition({x: -15, y: 3, z: -20})
+          console.log("you lose!")
+      }
       }
       else {
         this.spotlight.visible = false;
       }
-        
-        // console.log(this.body.position);
+            //x: -9.882986550780156, y: 16.397082007847693, z: 131.4130829308037 }
+       
+      
+      
+      console.log(this.body.position);
         this.controls.update(dt);
     }
 }

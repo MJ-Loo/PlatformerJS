@@ -59,7 +59,7 @@ export class RitualRoom{
       this.AddCandle([  this.x+7.6,this.y+1,this.z-0.7]);
       this.AddCandle([  this.x-5.6,this.y+1,this.z-2.7]);
       
-      const light = new THREE.AmbientLight( 0x7a0b1a); // soft white light
+      const light = new THREE.AmbientLight( 0xffefd6); // soft white light
       light.intensity =0.6;
       this.scene.add(light);
 
@@ -73,7 +73,7 @@ export class RitualRoom{
         dim: {r1: (1/4), r2: (1/4), h: 1, s:32},
         mass: 0,
         position: translation,
-        material: new THREE.MeshLambertMaterial({color: 0xfff4df, reflectivity : 0.5  , wireframe: false})
+        material: new THREE.MeshLambertMaterial({color: 0xffefd6  , wireframe: false})
     }
       this.candle = new Cylinder(params);
       this.candle.mesh.receiveShadow = true;

@@ -7,11 +7,11 @@ import { RitualRoom } from './objects/RitualRoom.js';
 import { Corridor } from './objects/Corridor.js';
 
 export class LevelOne{
-    constructor(scene, world, renderer, playerBody){
+    constructor(scene, world, renderer, player){
         this.scene = scene;
         this.world = world;
         this.renderer = renderer;
-        this.playerBody = playerBody;
+        this.player = player;
         // add ambient light
         const ambientLight = new THREE.AmbientLight( 0x404040, 0 ); // soft white light
         scene.add( ambientLight );
@@ -93,14 +93,7 @@ export class LevelOne{
         // make the corridor section - level 2
         this.Corridor = new Corridor(this.scene, this.world, this.renderer, -13, 15,120);
 
-        // event listener for collision
-        this.playerBody.addEventListener("collide",function(e){
-
-            console.log("The sphere just collided with obj" + e.body.id);
-            if (e.body.id == 48) {
-                console.log("The sphere just collided with obj 48");
-            }
-        });
+        
 
 
     }
@@ -131,9 +124,9 @@ export class LevelOne{
         
         this.Mp4.setPosition({x:-13 , y:10 + Math.sin(Date.now()/1600)*4, z: 120});
         this.Mp4.update();
-
+        
         this.startRoom.flicker();
-
+        this.Corridor.flicker();
 
     }
 }

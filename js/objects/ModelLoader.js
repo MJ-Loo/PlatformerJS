@@ -22,6 +22,7 @@ export class Models{
             mesh.scale.set(scale[0], scale[1], scale[2]); //scale vector as proportional to scene x y z vector
             mesh.position.set( position.x,position.y,position.z);  //vector of x y z translation
             mesh.rotation.set(rotation[0],rotation[1],rotation[2]); //vector of x y z rotation
+            mesh.receiveShadow = true;
             scene.add(mesh);
         }, function(xhr){
             console.log((xhr.loaded/xhr.total*100)+"% loaded")
