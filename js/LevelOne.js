@@ -111,7 +111,7 @@ export class LevelOne{
     }
     update(){ 
         // update positions and rotations of all objects
-        
+        // also updates any visual changes like flashing light
 
         this.Mp1.setPosition({x: -6+ Math.sin(Date.now()/1000)*5, y:-4, z:76});
         this.Mp1.update();
@@ -126,7 +126,7 @@ export class LevelOne{
         this.Mp4.update();
         
         this.startRoom.flicker();
-        this.Corridor.flicker();
+        this.Corridor.flash();
 
     }
 }

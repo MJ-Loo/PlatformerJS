@@ -5,17 +5,17 @@ import { Cone } from './Cone.js';
 import { Cylinder } from './Cylinder.js';
 import { Models } from './ModelLoader.js';
 
-
+// creates level 1
 export class RitualRoom{
     constructor(scene, world, renderer,x,y,z){
       this.scene = scene;
       this.world = world;
       this.renderer = renderer;
       this.texture = new THREE.TextureLoader();
-      this.x = x;
+      this.x = x; // object coordinates for entire room
       this.y=y;
       this.z =z;      
-      
+      // adding the point light for the candles
       this.candleLight1 = new THREE.PointLight( 0xffd07d, 2, 10 );
       this.candleLight1.position.set(  this.x+2.5,this.y+2,this.z+7.3);
       this.scene.add(this.candleLight1);
@@ -83,7 +83,7 @@ export class RitualRoom{
       this.scene.add(this.candle.mesh);
       this.addCandleLight(translation); // make the flame with a sphere and cone
     }
-
+    // using sphere and cone to make  a candle flame
     addCandleLight(translation){
       let params ={
         radius: 0.1,
@@ -128,15 +128,7 @@ export class RitualRoom{
       this.world.addBody(this.wall.body);
       this.scene.add(this.wall.mesh);
     }
-    addCustomModels(file, pos, rot, size){
-      let params = {
-        path :file,
-        position : {x: pos[0], y:pos[1]+1/2, z: pos[2]-0.1},
-        rotation: rot,
-        scale: size,
-      }
-      this.model = new Models(params, this.scene, this.world);
-    }
+
     // flicker for the candle point light - called in update
     flicker(){
       this.candleLight1.intensity = Math.sin(Date.now()/300)+3;

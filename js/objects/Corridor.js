@@ -9,8 +9,8 @@ export class Corridor{
       this.scene = scene;
       this.world = world;
       this.renderer = renderer;
-      this.texture = new THREE.TextureLoader();
-      this.x = x;
+      this.texture = new THREE.TextureLoader(); // texture loader for this level
+      this.x = x;// coordinates of this room
       this.y = y;
       this.z = z;
       this.createCorridor();
@@ -42,8 +42,7 @@ export class Corridor{
 
 
       this.platforms();
-    
-
+      // sets up the ceiling lights for the corridor 
       this.light2 = new THREE.PointLight( 0xffffff, 4, 15 );
       this.light2.position.set(  this.x,this.y+10,this.z+24);
       this.scene.add(this.light2);
@@ -57,11 +56,13 @@ export class Corridor{
       const light = new THREE.AmbientLight( 0xffffff); // soft white light
       light.intensity =0.2;
       this.scene.add(light);
-
+      // adds the white board
       this.addCustomModels('./assets/Corridor/Board.glb',[this.x+8, this.y, this.z+30],[0,(Math.PI/2)+20,(Math.PI/10)],[1,1,1]);
 
   }
-  // platforms
+  // creates the floating floor boards 
+  // single baord and double boards are two different textures
+  // each board can be slightly rotated/ tilted
   platforms(){
     
       this.StaticPlatforms([0.5, 0.2, 7 ], [this.x, this.y, this.z+28],[0, 0,0],'singleboard.jpg' );
@@ -106,6 +107,7 @@ export class Corridor{
       this.world.addBody(this.platform.body);
       this.scene.add(this.platform.mesh);
     }
+    // adds the emmissive light bulb as the source of light
     addLightbulb(translation){
       let params ={
         radius: 0.6,
@@ -126,11 +128,9 @@ export class Corridor{
       }
       this.model = new Models(params, this.scene, this.world);
     }
-    flicker(){
-  //    this.light2.intensity = Math.sin(Date.now()/200);
+    flash(){
+      // creates  flashing effect
       this.light2.distance = 17- Math.sin(Date.now()/300)*13;
-
-    //  this.light3.intensity = Math.sin(Date.now()/300);
       this.light3.distance = 17 - Math.sin(Date.now()/200)*13;
     }
 
