@@ -48,12 +48,12 @@ export class Player{
 
         this.controls.addEventListener('lock', () => {
           this.controls.enabled = true;
-          instructions.style.display = 'none'; //hide the pause menu
+          instructions.style.display = 'none';
         })
 
         this.controls.addEventListener('unlock', () => {
           this.controls.enabled = false;
-          instructions.style.display = 'flex'; //show the pause menu
+          instructions.style.display = null;
         })
     }
     returnBody(){
@@ -65,12 +65,12 @@ export class Player{
     }
 
     resetPosition(){
-      this.setPosition({x: -20, y: 2, z: -20});
+      this.setPosition({x: -10, y: 20, z: 217});
     }
 
     update(dt){
       
-      //console.log(this.body.position);
+      console.log(this.body.position);
       this.controls.update(dt);
     }
 }
