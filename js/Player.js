@@ -18,8 +18,8 @@ export class Player{
     this.camera.add(this.spotlight);
     this.camera.add(this.spotlight.target);
     this.spotlight.target.position.z = -2;
-    this.spotlight.target.position.y = 2;
-    this.spotlight.position.y = 1;  
+    this.spotlight.target.position.y = 0.5;
+    this.spotlight.position.y =1;  
   }
 
     initializeBody(){ // creates a sphere that acts as the body for the player (for collisions)
@@ -68,7 +68,7 @@ export class Player{
       //region for level 2 the player needs torch
       if (!(this.body.position.z < 135 || this.body.position.z > 210)) {
         this.spotlight.visible = true;
-        // death conditions being updated for level two
+        
         if (this.body.position.y<6.5 ) {
           this.setPosition({x: -15, y: 3, z: -20})
           console.log("you lose!")
