@@ -48,12 +48,12 @@ export class Player{
 
         this.controls.addEventListener('lock', () => {
           this.controls.enabled = true;
-          instructions.style.display = 'none';
+          instructions.style.display = 'none'; //hide the pause menu
         })
 
         this.controls.addEventListener('unlock', () => {
           this.controls.enabled = false;
-          instructions.style.display = null;
+          instructions.style.display = 'flex'; //show the pause menu
         })
     }
     returnBody(){
