@@ -6,23 +6,26 @@ export class Sphere{
         // process params
         this.params = params;
         const radius = params.radius;
+        const position = params.position;
         const material = params.material;
         const mass = params.mass;
 
         // three
-        this.createThreeMesh(radius, material);
+        this.createThreeMesh(radius, material,position);
 
         // cannon
-        this.createWorldBody(radius, mass);
+        this.createWorldBody(radius, mass,position);
     }
 
-    createThreeMesh(radius, material){
+    createThreeMesh(radius, material,position){
         this.geometry = new THREE.SphereGeometry(radius);
         this.material = material;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh.position.set(position.x, position.y,position.z);
+
     }
 
-    createWorldBody(radius, mass){
+    createWorldBody(radius, mass,position){
         this.physicalMaterial = new CANNON.Material();
         this.body = new CANNON.Body({
             mass: mass,
@@ -30,6 +33,7 @@ export class Sphere{
             position: new CANNON.Vec3(0, 0, 0),
             material: this.physicalMaterial
         });
+        this.body.position.set(position.x, position.y,position.z);
     }
 
     setPosition(position){

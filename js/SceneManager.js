@@ -10,11 +10,21 @@ export class SceneManager{
     constructor(){ // initialize all resources
         this.initializeRenderer();
         this.initializeScene();
+        //this.initializeFog();
         this.initializeWorld();
         this.initializeStats();
         this.initializeCamera();
         this.initializePlayer();
         this.lastCallTime = performance.now() / 1000; // needed to get delta for time based movement
+    }
+
+    initializeFog() {
+        
+        const near = 80;
+        const far = 10;
+        const color = 'black';
+        //this.scene.fog = new THREE.Fog(color, near, far);
+        this.scene.fog = new THREE.FogExp2(0xFFFFFF,0.3);
     }
     
     initializeRenderer(){
@@ -30,6 +40,11 @@ export class SceneManager{
     
     initializeWorld(){ // world (cannonjs) gravity set to -9.81 down
         this.world = new CANNON.World({gravity: new CANNON.Vec3(0, -25, 0)});
+        this.world.broadphase = new CANNON.NaiveBroadphase();
+
+        this.world.solver.iterations = 5;
+        this.world.defaultContactMaterial.contactEquationStiffness = 1e6;
+        this.world.defaultContactMaterial.contactEquationRelaxation = 10;
     }
     
     initializeStats(){ // stats for FPS counter
@@ -52,13 +67,14 @@ export class SceneManager{
             mass: 20
         }
         this.player = new Player(params);
-        this.player.setPosition({x: 0, y: 5, z: 0});
+        this.player.setPosition({x: -10, y: 18, z: 127});
         this.world.addBody(this.player.body);
         this.scene.add(this.player.controls.getObject());
+        this.playerBody = this.player.body;
     }
 
     loadScene(){ // select level (work in progress, will take in parameter and select correct level)
-        this.level = new LevelOne(this.scene, this.world, this.renderer);
+        this.level = new LevelOne(this.scene, this.world, this.renderer,this.player);
     }
 
     update() { // game update
