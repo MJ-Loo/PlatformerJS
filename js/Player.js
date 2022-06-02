@@ -18,8 +18,8 @@ export class Player{
     this.camera.add(this.spotlight);
     this.camera.add(this.spotlight.target);
     this.spotlight.target.position.z = -2;
-    this.spotlight.target.position.y = 2;
-    this.spotlight.position.y = 1;  
+    this.spotlight.target.position.y = 0.5;
+    this.spotlight.position.y =1;  
   }
 
     initializeBody(){ // creates a sphere that acts as the body for the player (for collisions)
