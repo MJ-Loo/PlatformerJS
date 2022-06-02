@@ -142,11 +142,9 @@ export class Corridor{
       }
       this.model = new Models(params, this.scene, this.world);
     }
-    flicker(){
-  //    this.light2.intensity = Math.sin(Date.now()/200);
+    flash(){
+      // creates  flashing effect
       this.light2.distance = 17- Math.sin(Date.now()/300)*13;
-
-    //  this.light3.intensity = Math.sin(Date.now()/300);
       this.light3.distance = 17 - Math.sin(Date.now()/200)*13;
     }
 
