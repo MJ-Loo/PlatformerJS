@@ -16,26 +16,35 @@ export class RitualRoom{
       this.y=y;
       this.z =z;      
       // adding the point light for the candles
-      this.candleLight1 = new THREE.PointLight( 0xffd07d, 2, 10 );
-      this.candleLight1.position.set(  this.x+2.5,this.y+2,this.z+7.3);
+      this.candleLight1 = new THREE.PointLight(0xff6726, 2, 10); //0xffd07d
+      this.candleLight1.position.set(  this.x+2.5,this.y+3,this.z+7.3);
       this.scene.add(this.candleLight1);
+      this.candleLight1.castShadow = true;
+      this.candleLight1.receiveShadow = true;
 
-      this.candleLight2 = new THREE.PointLight( 0xffb87d, 2, 10 );
-      this.candleLight2.position.set(   this.x, this.y+2,this.z-6.3);
+      this.candleLight2 = new THREE.PointLight(0xff6726, 2, 10); //0xffb87d
+      this.candleLight2.position.set(   this.x, this.y+3,this.z-6.3);
       this.scene.add(this.candleLight2);
-
+      this.candleLight2.castShadow = true;
+      this.candleLight2.receiveShadow = true;
       
-      this.candleLight3 = new THREE.PointLight( 0xffd180, 2, 10 );
-      this.candleLight3.position.set(   this.x-4.2,this.y+2,this.z+6.8);
+      this.candleLight3 = new THREE.PointLight(0xff6726, 2, 10); //0xffd180
+      this.candleLight3.position.set(   this.x-4.2,this.y+3,this.z+6.8);
       this.scene.add(this.candleLight3);
+      this.candleLight3.castShadow = true;
+      this.candleLight3.receiveShadow = true;
 
-      this.candleLight4 = new THREE.PointLight( 0xff6726, 2, 10 );
-      this.candleLight4.position.set(   this.x +7.6,this.y+2,this.z-0.7);
+      this.candleLight4 = new THREE.PointLight(0xff6726, 2, 10); //0xff6726
+      this.candleLight4.position.set(   this.x +7.6,this.y+3,this.z-0.7);
       this.scene.add(this.candleLight4);
+      this.candleLight4.castShadow = true;
+      this.candleLight4.receiveShadow = true;
 
-      this.candleLight5 = new THREE.PointLight( 0xfff5e3, 2,this.z+ 10 );
-      this.candleLight5.position.set(  this.x-5.6,this.y+2,this.z-2.7);
+      this.candleLight5 = new THREE.PointLight(0xff6726, 2, this.z + 10); //0xfff5e3
+      this.candleLight5.position.set(  this.x-5.6,this.y+3,this.z-2.7);
       this.scene.add(this.candleLight5);
+      this.candleLight5.castShadow = true;
+      this.candleLight5.receiveShadow = true;
     }
     
     RitualRoom(){
@@ -73,7 +82,7 @@ export class RitualRoom{
         dim: {r1: (1/4), r2: (1/4), h: 1, s:32},
         mass: 0,
         position: translation,
-        material: new THREE.MeshLambertMaterial({color: 0xffefd6  , wireframe: false})
+        material: new THREE.MeshPhongMaterial({ color: 0xffefd6, wireframe: false, shininess: 50 })
     }
       this.candle = new Cylinder(params);
       this.candle.mesh.receiveShadow = true;
@@ -140,7 +149,6 @@ export class RitualRoom{
       this.candleLight3.intensity = Math.sin(Date.now()/500)+6;
       this.candleLight3.distance = Math.sin(Date.now()/500)+12;
 
-      
       this.candleLight4.intensity = Math.sin(Date.now()/420)+6;
       this.candleLight4.distance = Math.sin(Date.now()/200)+10;
 

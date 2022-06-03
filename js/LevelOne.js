@@ -151,7 +151,7 @@ export class LevelOne{
         this.Mp3.update();
         this.startRoom.flicker();
         this.Corridor.flash();
-        console.log(this.player.body.position)
+        //console.log(this.player.body.position)
         this.status =1;
         if (this.player.body.position.y<-20 && this.player.body.position.z < 244 ) {
             this.status = 0

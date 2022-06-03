@@ -68,7 +68,7 @@ export class Corridor{
       this.addLightbulb([ this.x,this.y+10,this.z+36]);
 
       const light = new THREE.AmbientLight( 0xffffff); // soft white light
-      light.intensity =0.02;
+      light.intensity =0.02; //0.62 without ritual ambient
       this.scene.add(light);
       // adds the white board
       this.addCustomModels('./assets/Corridor/Board.glb',[this.x+8, this.y, this.z+30],[0,(Math.PI/2)+20,(Math.PI/10)],[1,1,1]);
@@ -144,8 +144,14 @@ export class Corridor{
     }
     flash(){
       // creates  flashing effect
-      this.light2.distance = 17- Math.sin(Date.now()/300)*13;
-      this.light3.distance = 17 - Math.sin(Date.now()/200)*13;
+
+      //flashing version
+      this.light2.distance = Math.round(Math.random()*11) + 3;
+      this.light3.distance = Math.round(Math.random()*20) + 10;
+
+      //Smooth version
+      //this.light2.distance = 17- Math.sin(Date.now()/300)*13;
+      //this.light3.distance = 17 - Math.sin(Date.now()/200)*13;
     }
 
 }

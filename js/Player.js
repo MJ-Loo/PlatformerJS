@@ -70,7 +70,7 @@ export class Player{
 
     update(dt){
       
-      console.log(this.body.position);
+      //console.log(this.body.position);
       this.controls.update(dt);
     }
 }
