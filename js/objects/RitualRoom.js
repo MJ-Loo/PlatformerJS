@@ -40,7 +40,7 @@ export class RitualRoom{
       this.candleLight4.castShadow = true;
       this.candleLight4.receiveShadow = true;
 
-      this.candleLight5 = new THREE.PointLight(0xff6726, 2, this.z + 10); //0xfff5e3
+      this.candleLight5 = new THREE.PointLight(0xff6726, 2, 10); //0xfff5e3
       this.candleLight5.position.set(  this.x-5.6,this.y+3,this.z-2.7);
       this.scene.add(this.candleLight5);
       this.candleLight5.castShadow = true;

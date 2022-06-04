@@ -45,56 +45,57 @@ export class LevelOne{
         platform_texture.wrapS = THREE.RepeatWrapping;
         platform_texture.wrapT = THREE.RepeatWrapping;
         platform_texture.encoding = THREE.sRGBEncoding;
-        let params = { 
+        let params1 = { 
             scale: {x: 5, y:1, z: 5},
             mass: 0,
             position: [-20,2,72],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
-        this.Mp1 = new Box(params);
+        this.Mp1 = new Box(params1);
         this.Mp1.mesh.receiveShadow = true;
         this.Mp1.mesh.castShadow = true;
         this.world.addBody(this.Mp1.body);
         this.scene.add(this.Mp1.mesh);
-        let params1 = { 
+        let params2 = { 
             scale: {x: 6, y:1, z: 6},
             mass: 0,
             position: [-23,-2,85],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
-        this.Mp2 = new Box(params1);
+        this.Mp2 = new Box(params2);
         this.Mp2.mesh.receiveShadow = true;
         this.Mp2.mesh.castShadow = true;
         this.world.addBody(this.Mp2.body);
         this.scene.add(this.Mp2.mesh);
 
-        let params2 = { 
+        let params3 = { 
             scale: {x: 4, y:1, z: 4},
             mass: 0,
             position: [0,4,90],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
-        this.Mp3 = new Box(params2);
+        this.Mp3 = new Box(params3);
         this.Mp3.mesh.receiveShadow = true;
         this.Mp3.mesh.castShadow = true;
         this.world.addBody(this.Mp3.body);
         this.scene.add(this.Mp3.mesh);
         
-        let params3 = { 
+        let params4 = { 
             scale: {x: 6, y:1, z: 6},
             mass: 0,
-            position: [0,4,90],
+            position: [13,9,,120],
             rotation: {x:0, y:0,z:0},
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
-        this.Mp4 = new Box(params3);
+        this.Mp4 = new Box(params4);
         this.Mp4.mesh.receiveShadow = true;
         this.Mp4.mesh.castShadow = true;
         this.world.addBody(this.Mp4.body);
         this.scene.add(this.Mp4.mesh);
+
         // make the corridor section - level 2
         this.Corridor = new Corridor(this.scene, this.world, this.renderer, -13, 15,120);
 
@@ -141,40 +142,70 @@ export class LevelOne{
         // update positions and rotations of all objects
         // also updates any visual changes like flashing light
 
-        this.Mp1.setPosition({x: -6+ Math.sin(Date.now()/1000)*5, y:-4, z:76});
-        this.Mp1.update();
-
-        this.Mp2.setPosition({x:-20 , y:-2, z: 90 + Math.sin(Date.now()/950)*6});
-        this.Mp2.update();
-
-        this.Mp3.setPosition({x:-10+ Math.sin(Date.now()/1000)*6, y:2, z:95});
-        this.Mp3.update();
-        this.startRoom.flicker();
-        this.Corridor.flash();
-        //console.log(this.player.body.position)
-        this.status =1;
-        if (this.player.body.position.y<-20 && this.player.body.position.z < 244 ) {
-            this.status = 0
-        }    
-        if (!(this.player.body.position.z < 135 || this.player.body.position.z > 220)) {
-            this.player.spotlight.visible = true;
-            if (this.player.body.position.y<6.5 ) {
-                this.status =0
-            }
+        this.status = 1; //death/teleport condition
+        let level = 0; //current level/room
+        if (this.player.body.position.z <130) //ritual room/platforms
+        {
+            level = 1;
         }
-        else {
+        if (this.player.body.position.z > 130) { //corridor
+            level = 2; 
+        }
+        if (this.player.body.position.z > 300) { //end
+            level = 3;
+        }
+        if (level == 0) //none of the above
+        {
+            console.log("Not part of any level");    
+        }
+        if (level == 1) //ritual room/platforms
+        {
+            this.startRoom.flicker();
             this.player.spotlight.visible = false;
-        } 
-        
-        if (this.player.body.position.z >244 &&this.player.body.position.y >15 ) {
-            this.scene.background= this.sky2;       
-            this.player.setPosition({x:0, y: -30,z:568});
-        }
 
-        if (this.status == 0){
-            this.player.setPosition({x: -15, y: 3, z: -20})
-            console.log("you lose!");
-            this.scene.background= this.sky1;        
+            this.Mp1.setPosition({ x: -6 + Math.sin(Date.now() / 1000) * 5, y: -4, z: 76 });
+            this.Mp1.update();
+
+            this.Mp2.setPosition({ x: -20, y: -2, z: 90 + Math.sin(Date.now() / 950) * 6 });
+            this.Mp2.update();
+
+            this.Mp3.setPosition({ x: -10 + Math.sin(Date.now() / 1000) * 6, y: 2, z: 95 });
+            this.Mp3.update();
+            
+            this.Mp4.setPosition({ x: -13, y: 9 + Math.sin(Date.now() / 1000) * 6, z: 120 })
+            this.Mp4.update();
+            //death condition
+            if (this.player.body.position.y < -20)
+            {
+                this.status = 0
+            } 
         }
-    }
+        if (level == 2) //corridor
+        {
+            this.Corridor.flash();
+            this.player.spotlight.visible = true;
+
+            //death condition
+            if (this.player.body.position.y < 6.5) {
+                this.status = 0
+            }
+            //player at end of corridor
+            if (this.player.body.position.z > 244 && this.player.body.position.y < 7) {
+                this.scene.background = this.sky2;
+                this.player.setPosition({ x: 0, y: -40, z: 568 });
+            }
+         }
+         
+        if (level == 3) //end
+        { 
+            this.player.spotlight.visible = false;
+            this.End.update();
+        }
+        if (this.status == 0) //dead
+        {
+            this.player.setPosition({ x: -15, y: 3, z: -20 })
+            console.log("you lose!");
+            this.scene.background = this.sky1;
+        }
+    } 
 }

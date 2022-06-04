@@ -71,7 +71,7 @@ export class Corridor{
       light.intensity =0.02; //0.62 without ritual ambient
       this.scene.add(light);
       // adds the white board
-      this.addCustomModels('./assets/Corridor/Board.glb',[this.x+8, this.y, this.z+30],[0,(Math.PI/2)+20,(Math.PI/10)],[1,1,1]);
+      //this.addCustomModels('./assets/Corridor/Board.glb',[this.x+8, this.y, this.z+30],[0,(Math.PI/2)+20,(Math.PI/10)],[1,1,1]);
 
   }
   // creates the floating floor boards 
