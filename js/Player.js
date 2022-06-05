@@ -1,11 +1,26 @@
 import * as CANNON from './cannon/cannon-es.js'
 import { PointerLockControlsCannon } from './cannon/PointerLockControlsCannon.js'
+import * as THREE from 'three';
 
 export class Player{
     constructor(params){
-        this.camera = params.camera;
-        this.initializeBody();
-    }
+      this.camera = params.camera;
+      this.initializeSpotlight();
+      this.initializeBody();
+  }
+  
+  initializeSpotlight()
+  {
+    //torch initially turned off
+    this.spotlight = new THREE.SpotLight(0xffffff, 5, 30, Math.PI * 0.1,0.4, 0.2);
+    this.spotlight.visible = false;
+    this.spotlight.castShadow = true; 
+    this.camera.add(this.spotlight);
+    this.camera.add(this.spotlight.target);
+    this.spotlight.target.position.z = -2;
+    this.spotlight.target.position.y = 0.5;
+    this.spotlight.position.y =1;  
+  }
 
     initializeBody(){ // creates a sphere that acts as the body for the player (for collisions)
         this.radius = 1.3;
@@ -13,7 +28,7 @@ export class Player{
         this.physicsMaterial = new CANNON.Material('physics');
         this.body = new CANNON.Body({ mass: 5, material: this.physicsMaterial });
         this.body.addShape(this.bodyShape);
-        this.body.position.set(0, 3, 0);
+        this.body.position.set(-15, 3, 20);
         this.body.linearDamping = 0.9;
         this.initPointerLock();
     }
@@ -21,14 +36,13 @@ export class Player{
     initPointerLock() {
         this.controls = new PointerLockControlsCannon(this.camera, this.body);
 
-        restart.addEventListener('click', () => {
-          this.resetPostition();
+        btnRestart.addEventListener('click', () => {
+          this.resetPosition();
           this.controls.lock();
         })
 
-
-        //Pause and Resume
-        resume.addEventListener('click', () => {
+        //Resume and Pause Game
+        btnResume.addEventListener('click', () => {
           this.controls.lock();
         })
 
@@ -42,27 +56,42 @@ export class Player{
           instructions.style.display = null;
         })
     }
+    returnBody(){
+      return this.body;
+    }
 
     setPosition(position){
         this.body.position.set(position.x, position.y, position.z);
     }
 
-    resetPostition(){
-      this.setPosition({x: 0, y: 2, z: 0})
+    resetPosition(){
+      this.setPosition({x: -20, y: 2, z: -20});
     }
 
     update(dt){
         //Restart level when player has fallen to y=-30
-        if (this.body.position.y<-20) {
-          this.resetPostition()
+      if (this.body.position.y<-20) {
+          this.resetPosition();
           console.log("you lose!")
-        }
-        if (this.body.position.z > 90){
-          console.log("you win!");
-          this.setPosition({x: 0, y: 2, z: 0});
-        }
+      }
+
+      //region for level 2 the player needs torch
+      if (!(this.body.position.z < 135 || this.body.position.z > 210)) {
+        this.spotlight.visible = true;
         
-        // console.log(this.body.position);
+        if (this.body.position.y<6.5 ) {
+          this.resetPosition();
+          console.log("you lose!")
+      }
+      }
+      else {
+        this.spotlight.visible = false;
+      }
+            //x: -9.882986550780156, y: 16.397082007847693, z: 131.4130829308037 }
+       
+      
+      
+      console.log(this.body.position);
         this.controls.update(dt);
     }
 }
