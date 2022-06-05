@@ -200,6 +200,12 @@ export class LevelOne{
         { 
             this.player.spotlight.visible = false;
             this.End.update();
+
+            if (this.player.body.position.y < -70)
+            {
+                this.status = 0;
+            }
+            //some way to tell if player died from blade
         }
         if (this.status == 0) //dead
         {
