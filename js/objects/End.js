@@ -46,7 +46,7 @@ export class EndRoom{
     this.world.addBody(this.FrontWall.body);
     this.scene.add(this.FrontWall.mesh);
 
-    //first Guilotine rusty cleaver
+    //first Guilotine rusty cleaver, sharp bottom and top if possible
     let params1 = {
       scale: { x: 10, y: 5, z: 0.2 },
       mass: 0,
@@ -60,7 +60,7 @@ export class EndRoom{
     this.world.addBody(this.Guilotine1.body);
     this.scene.add(this.Guilotine1.mesh);
 
-    //2nd Guilotine bloody rusted cleaver
+    //2nd Guilotine bloody rusted cleaver sharp bottom and top if possible
     let params2 = {
       scale: { x: 10, y: 5, z: 0.2 },
       mass: 0,

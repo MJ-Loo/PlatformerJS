@@ -160,7 +160,7 @@ export class RitualRoom{
       this.StaticPlatforms([7,1,7],[x-5,y+1,z]);
       this.StaticPlatforms([4,1,4],[x+4,y-1,z+10]);
       this.StaticPlatforms([5,1,5],[x-6,y,z+16]);
-      this.StaticPlatforms([6,1,6],[x,y-2,z+24]);
+      this.StaticPlatforms([6,1,6],[x+8,y-2,z+24]);
       this.StaticPlatforms([5,1,5],[x+1,y-1,z+32]);
       this.StaticPlatforms([5,1,5],[x+5,y+1,z+39]);
       this.StaticPlatforms([5,1,5],[x-4,y+2,z+46]);

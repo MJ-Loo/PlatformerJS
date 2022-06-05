@@ -205,6 +205,11 @@ export class LevelOne{
             {
                 this.status = 0;
             }
+
+            if (this.checkBladeCollisions())
+            {
+                this.status = 0;
+            }
             //some way to tell if player died from blade
         }
         if (this.status == 0) //dead
@@ -214,4 +219,72 @@ export class LevelOne{
             this.scene.background = this.sky1;
         }
     } 
+    checkBladeCollisions() {
+        if (this.checkYPosition(this.End.Guilotine1) && this.checkZPosition(this.End.Guilotine1))
+        {
+            return true;
+        }
+        if (this.checkYPosition(this.End.Guilotine2) && this.checkZPosition(this.End.Guilotine2))
+        {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine3)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine4)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine5)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine6)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine7)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine8)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine9)) {
+            return true;
+        }
+        if (this.checkCollision(this.End.Guilotine10)) {
+            return true;
+        }
+        return false;
+    }
+    checkCollision(Guilotine) {
+        if (this.checkXPosition(Guilotine) && this.checkYPosition(Guilotine) && this.checkZPosition(Guilotine))
+        {
+            return true;
+        }
+        return false;
+    }
+    checkXPosition(Guilotine)
+    {
+        let size = Guilotine.params.scale.x;
+        if (Math.abs(this.player.body.position.x - Guilotine.body.position.x) < size + 0.1 ) {
+            return true;
+        }
+        return false;
+    }
+    checkYPosition(Guilotine)
+    {
+        let size =  Guilotine.params.scale.y;
+        if (Math.abs(this.player.body.position.y - Guilotine.body.position.y) < size + 0.1 )//account for distance from center
+        {
+            return true;
+        }
+        return false;
+    }
+    checkZPosition(Guilotine)
+    {
+        let size = Guilotine.params.scale.z;
+        if (Math.abs(this.player.body.position.z - Guilotine.body.position.z) < size +  0.1)
+        {
+            return true;
+        }
+        return false;
+    }
 }
