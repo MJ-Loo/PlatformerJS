@@ -59,6 +59,7 @@ export class SceneManager{
             0.1,
             1000
         );
+        this.camera.translateY(2);
     }
 
     initializePlayer(){ // player object
