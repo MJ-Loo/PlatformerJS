@@ -3,19 +3,14 @@ let menuContainer = document.getElementById("menuContainer");
 const gameName = menuContainer.getElementsByTagName("p");
 const menuButtons = menuContainer.getElementsByTagName("button");
 
-// for (const button of buttons) {
-//   button.addEventListener("click", function (event) {
-//     document.body.style.setProperty(
-//       "--drift",
-//       Math.floor(Math.random() * 400) - 200 + "px"
-//     );
-//     button.classList.toggle("active");
-//     setTimeout(() => {
-//       button.classList.toggle("active");
-//     }, 2000);
-//   });
-// }
-
+function toggleControls() {
+    var x = document.getElementById("controls");
+    if (x.style.visibility === "hidden") {
+      x.style.visibility = "visible";
+    } else {
+      x.style.visibility = "hidden";
+    }
+  }
 
 
 function splitText(words) {

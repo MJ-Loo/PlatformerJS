@@ -31,11 +31,20 @@
     <div id = "menuBg">
       <div id="mainMenu">
         <div id="menuContainer">
-          <p class="gameName">Asylum</p>
+          <p id="gameName">Asylum</p>
           <br/>
           <div class="buttons">
             <button id="btnStart" type="button">Start</button>
-          <button id="btnHowToPlay" type="button">Controls</button>
+            <button id="btnHowToPlay" type="button" onclick="toggleControls()">Controls</button>
+          <br/>
+          <ul id = controls>
+            <li>Jump=Space</li>
+            <li>W=Forward</li>
+            <li>A=Backwards</li>
+            <li>S=Left</li>
+            <li>D=Right</li>
+            <li>Mouse=Look</li>
+          </ul>
         </div>
       </div>
     </div>

@@ -69,6 +69,9 @@ export class Player{
         this.body.position.set(position.x, position.y, position.z);
     }
 
+    
+
+
     resetPosition(){
       this.setPosition({x: -20, y: 2, z: -20});
     }

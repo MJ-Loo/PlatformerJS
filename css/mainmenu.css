@@ -42,10 +42,19 @@ html {
     /* cursor: pointer; */
 }
 
-#mainMenu span {
-    font-size: 40px;
-}
 
+#controls{
+    align-content: center;
+    list-style-type: none;
+    display: block;
+    text-align: center;
+    position: relative;
+    margin: 40px auto;
+    font-size: 20px;
+    word-spacing: 20px;
+    padding: 0;
+    visibility: hidden;
+}
 
 #menuBg:after {
     content: "";
@@ -105,10 +114,6 @@ html {
 }
 
 
-.gameName {
-    font-size: 100;
-}
-
 #menuContainer .buttons {
     margin-top: 1rem;
     width: inherit;
@@ -127,7 +132,7 @@ html {
     width: 45%;
     margin: 0 2.5%;
     font-family: "Stranger";
-    font-size: 1.25rem;
+    font-size: 40px;
     text-transform: uppercase;
     background: transparent;
     border: 0px solid;
@@ -512,11 +517,11 @@ html {
     max-width: 400px;
     margin: 0px auto;
     clear: both;
-    font-size: 3rem;
+    font-size: 80px;
     transform-style: preserve-3d;
     position: relative;
     z-index: 3;
-    transform: scale(1.25);
+    transform: scale(1);
 }
 
 #menuContainer>p>span {
