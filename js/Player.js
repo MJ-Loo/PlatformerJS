@@ -53,7 +53,12 @@ export class Player{
 
         this.controls.addEventListener('unlock', () => {
           this.controls.enabled = false;
-          instructions.style.display = null;
+          instructions.style.display = 'flex';
+        })
+
+        btnStart.addEventListener('click', () => {
+          this.controls.lock();
+          menuBg.style.display = 'none';
         })
     }
     returnBody(){
