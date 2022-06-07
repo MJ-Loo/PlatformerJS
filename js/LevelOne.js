@@ -192,7 +192,7 @@ export class LevelOne{
             //player at end of corridor
             if (this.player.body.position.z > 244 && this.player.body.position.y < 7) {
                 this.scene.background = this.sky2;
-                this.player.setPosition({ x: 0, y: -40, z: 568 });
+                this.player.setPosition({ x: 0, y: -57, z: 573 });
             }
          }
          
@@ -200,17 +200,13 @@ export class LevelOne{
         { 
             this.player.spotlight.visible = false;
             this.End.update();
-
-            if (this.player.body.position.y < -70)
+            
+            //player died
+            if (this.player.body.position.y < -70 || this.checkBladeCollisions())
             {
-                this.status = 0;
+                //this.status = 0;
+                this.End.resetFrontWall();
             }
-
-            if (this.checkBladeCollisions())
-            {
-                this.status = 0;
-            }
-            //some way to tell if player died from blade
         }
         if (this.status == 0) //dead
         {
@@ -220,13 +216,11 @@ export class LevelOne{
         }
     } 
     checkBladeCollisions() {
-        if (this.checkYPosition(this.End.Guilotine1) && this.checkZPosition(this.End.Guilotine1))
-        {
-            return true;
+        if (this.checkYPosition(this.End.Guilotine1) && this.checkZPosition(this.End.Guilotine1)) {
+            return true; //only need to check y and z values
         }
-        if (this.checkYPosition(this.End.Guilotine2) && this.checkZPosition(this.End.Guilotine2))
-        {
-            return true;
+        if (this.checkYPosition(this.End.Guilotine2) && this.checkZPosition(this.End.Guilotine2)) {
+            return true; //only need to check y and z values
         }
         if (this.checkCollision(this.End.Guilotine3)) {
             return true;
