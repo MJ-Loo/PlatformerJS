@@ -36,6 +36,18 @@ html {
   font-size: 40px;
 }
 
+#timer {
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+  font-size: 25px;
+  color: white;
+  font-family: "Stranger";
+}
+
 #container {
   margin: auto;
   font-family: "Stranger";

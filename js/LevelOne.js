@@ -10,6 +10,8 @@ import {EndRoom} from './objects/End.js'
 
 export class LevelOne{
     constructor(scene, world, renderer, player){
+        this.countDownDate = Date.now() + 300000; // set timer start
+
         this.scene = scene;
         this.world = world;
         this.renderer = renderer;
@@ -140,6 +142,27 @@ export class LevelOne{
         this.plane.rotation.x= Math.PI/2;
         this.scene.add( this.plane );
     }
+
+    updateTimer(){
+        // Get today's date and time
+        var now = new Date().getTime();
+        
+        // Find the distance between now and the count down date
+        var distance = this.countDownDate - now;
+        
+        // Time calculations for days, hours, minutes and seconds
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Display the result in the element with id="timer"
+        document.getElementById("timer").innerHTML = "Time remaining: " + minutes + "m " + seconds + "s ";
+        
+        // If the count down is finished, kill
+        if (distance < 0) {
+            document.getElementById("timer").innerHTML = "Time remaining: " + minutes + "m " + seconds + "s ";
+            this.status = 0;
+        }
+    }
     
     update(){ 
         // update positions and rotations of all objects
@@ -147,6 +170,9 @@ export class LevelOne{
 
         this.status = 1; //death/teleport condition
         let level = 0; //current level/room
+        
+        this.updateTimer();
+
         if (this.player.body.position.z <130) //ritual room/platforms
         {
             level = 1;
@@ -223,6 +249,8 @@ export class LevelOne{
             this.player.setPosition({ x: -15, y: 3, z: -20 })
             console.log("you lose!");
             this.scene.background = this.sky1;
+            this.countDownDate = Date.now() + 300000; // set timer start
+
         }
     } 
     checkBladeCollisions() {
