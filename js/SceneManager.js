@@ -5,6 +5,7 @@ import { GLTFLoader } from 'https://unpkg.com/three@0.139.2/examples/jsm/loaders
 import * as CANNON from './cannon/cannon-es.js'
 import {Player} from './Player.js'
 import { LevelOne } from './LevelOne.js'
+import { MiniMap } from './MiniMap.js';
 
 export class SceneManager{
     constructor(){ // initialize all resources
@@ -15,6 +16,7 @@ export class SceneManager{
         this.initializeStats();
         this.initializeCamera();
         this.initializePlayer();
+        this.initializeMiniMap();
         this.lastCallTime = performance.now() / 1000; // needed to get delta for time based movement
     }
 
@@ -30,6 +32,7 @@ export class SceneManager{
     initializeRenderer(){
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.autoClear = false; // important!
         this.renderer.shadowMap.enabled = true; // enable shadows
         document.body.appendChild(this.renderer.domElement);
     }
@@ -45,6 +48,10 @@ export class SceneManager{
         this.world.solver.iterations = 5;
         this.world.defaultContactMaterial.contactEquationStiffness = 1e6;
         this.world.defaultContactMaterial.contactEquationRelaxation = 10;
+    }
+
+    initializeMiniMap(){
+        this.minimap = new MiniMap(this.renderer, this.scene, this.player);
     }
     
     initializeStats(){ // stats for FPS counter
@@ -90,7 +97,13 @@ export class SceneManager{
             this.level.update();
             this.player.update(dt);
         }
+        
+        this.renderer.clear();
+        this.renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
         this.renderer.render(this.scene, this.camera);
+        
+        this.minimap.update();
+
         this.stats.update();
     }
     
