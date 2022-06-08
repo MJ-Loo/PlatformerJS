@@ -42,6 +42,7 @@ export class SceneManager{
     }
     
     initializeWorld(){ // world (cannonjs) gravity set to -9.81 down
+
         this.world = new CANNON.World({gravity: new CANNON.Vec3(0, -20, 0)});
         this.world.broadphase = new CANNON.NaiveBroadphase();
 
@@ -75,14 +76,14 @@ export class SceneManager{
             mass: 20
         }
         this.player = new Player(params);
-        this.player.setPosition({x: -10, y: 18, z: 127});
+        this.player.setPosition({x: -15, y: 3, z: -20});
         this.world.addBody(this.player.body);
         this.scene.add(this.player.controls.getObject());
         this.playerBody = this.player.body;
     }
 
     loadScene(){ // select level (work in progress, will take in parameter and select correct level)
-        this.level = new LevelOne(this.scene, this.world, this.renderer,this.player);
+        this.level = new LevelOne(this.scene, this.world, this.renderer, this.player);
     }
 
     update() { // game update

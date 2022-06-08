@@ -28,7 +28,8 @@ export class Player{
         this.physicsMaterial = new CANNON.Material('physics');
         this.body = new CANNON.Body({ mass: 5, material: this.physicsMaterial });
         this.body.addShape(this.bodyShape);
-        this.body.position.set(-15, 3, 20);
+        this.body.position.set(-15, 3, -20);
+
         this.body.linearDamping = 0.9;
         this.initPointerLock();
     }
@@ -69,37 +70,13 @@ export class Player{
         this.body.position.set(position.x, position.y, position.z);
     }
 
-    
-
-
     resetPosition(){
-      this.setPosition({x: -20, y: 2, z: -20});
+      this.setPosition({ x: -15, y: 3, z: -20 });
     }
 
-    update(dt){
-        //Restart level when player has fallen to y=-30
-      if (this.body.position.y<-20) {
-          this.resetPosition();
-          console.log("you lose!")
-      }
-
-      //region for level 2 the player needs torch
-      if (!(this.body.position.z < 135 || this.body.position.z > 210)) {
-        this.spotlight.visible = true;
-        
-        if (this.body.position.y<6.5 ) {
-          this.resetPosition();
-          console.log("you lose!")
-      }
-      }
-      else {
-        this.spotlight.visible = false;
-      }
-            //x: -9.882986550780156, y: 16.397082007847693, z: 131.4130829308037 }
-       
-      
-      
-      console.log(this.body.position);
-        this.controls.update(dt);
+    update(dt)
+{
+      //console.log(this.body.position);
+      this.controls.update(dt);
     }
 }

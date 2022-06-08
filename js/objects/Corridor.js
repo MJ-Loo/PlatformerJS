@@ -38,8 +38,18 @@ export class Corridor{
       this.StaticPlatforms([12, 36, 0.2], [this.x-11, this.y+2, this.z+92] ,[0,0,0],'Cwalllong.jpg');
       this.StaticPlatforms([12, 36, 0.2], [this.x+11, this.y+2, this.z+92] ,[0,0,0],'Cwalllong2.jpg');    
       this.StaticPlatforms([10, 17, 0.2], [this.x, this.y-8.5, this.z+92] ,[0,0,0],'Cwalllong.jpg');
+    
+      this.StaticPlatforms([0.2, 12, 40], [this.x-5, this.y+5, this.z+112] ,[0,0,0],'stair1.jpg');
+      this.StaticPlatforms([0.2, 12, 40], [this.x+5, this.y+5, this.z+112] ,[0,0,0],'stair2.jpg');
+      this.StaticPlatforms([32, 0.2, 10], [this.x, this.y, this.z+107] ,[0,Math.PI/2,0],'fullFloor.jpg');
+      this.StaticPlatforms([10, 0.2, 40], [this.x, this.y+10, this.z+112] ,[0,0,0],'stair1.jpg');
+      this.StaticPlatforms([15, 12, 0.2], [this.x, this.y+5, this.z+131] ,[0,0,0],'stair1.jpg');
 
-
+      // empty file creates a black block for drop
+      this.StaticPlatforms([10, 25, 0.2], [this.x, this.y-13.5, this.z+131] ,[0,0,0],'');
+      this.StaticPlatforms([0.2, 25, 8], [this.x-5, this.y-13.5, this.z+127] ,[0,0,0],'');
+      this.StaticPlatforms([0.2, 25, 25], [this.x+5, this.y-13.5, this.z+127] ,[0,0,0],'');
+      this.StaticPlatforms([10, 25, 0.2], [this.x, this.y-12.5, this.z+123] ,[0,0,0], '');
 
       this.platforms();
       // sets up the ceiling lights for the corridor 
@@ -54,6 +64,7 @@ export class Corridor{
       this.addLightbulb([ this.x,this.y+10,this.z+36]);
 
       const light = new THREE.AmbientLight( 0xffffff); // soft white light
+
       light.intensity =0.2;
       this.scene.add(light);
       // adds the white board
@@ -130,8 +141,13 @@ export class Corridor{
     }
     flash(){
       // creates  flashing effect
-      this.light2.distance = 17- Math.sin(Date.now()/300)*13;
-      this.light3.distance = 17 - Math.sin(Date.now()/200)*13;
+      //flashing version
+      this.light2.distance = Math.round(Math.random()*11) + 3;
+      this.light3.distance = Math.round(Math.random()*20) + 10;
+
+      //Smooth version
+      //this.light2.distance = 17- Math.sin(Date.now()/300)*13;
+      //this.light3.distance = 17 - Math.sin(Date.now()/200)*13;
     }
 
 }
