@@ -157,6 +157,9 @@ export class LevelOne{
         if (this.player.body.position.z > 300) { //end
             level = 3;
         }
+        if (this.player.body.position.z > 720){ //win
+            level = 4; 
+        }
         if (level == 0) //none of the above
         {
             console.log("Not part of any level");    
@@ -197,7 +200,7 @@ export class LevelOne{
                 this.scene.background = this.sky2;
                 this.player.setPosition({ x: 0, y: -57, z: 573 });
             }
-         }
+        }
          
         if (level == 3) //end
         { 
@@ -207,9 +210,13 @@ export class LevelOne{
             //player died
             if (this.player.body.position.y < -70 || this.checkBladeCollisions())
             {
-                //this.status = 0;
+                this.status = 0;
                 this.End.resetFrontWall();
             }
+        }
+        if (level == 4) //win
+        {
+            console.log("You won");
         }
         if (this.status == 0) //dead
         {
@@ -263,11 +270,10 @@ export class LevelOne{
         let xCheck = false;
         let yCheck = false;
         let zCheck = false;
-        //console.log(CirclePlatform.body.boundingRadius);
         if (Math.abs(this.player.body.position.x - CirclePlatform.body.position.x) < CirclePlatform.body.boundingRadius) {
             xCheck = true;
         }
-        if (this.player.body.position.y < 5) {
+        if (Math.abs(this.player.body.position.y - CirclePlatform.body.position.y) < 2) {
             yCheck = true;
         }
         if (Math.abs(this.player.body.position.z - CirclePlatform.body.position.z) < CirclePlatform.body.boundingRadius) {

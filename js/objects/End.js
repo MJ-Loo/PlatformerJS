@@ -31,10 +31,12 @@ export class EndRoom{
     this.Platforms([0.2, 10, 10], [this.x + 5, this.y + 5, this.z - 30], [0, 0, 0], wall_texture);
     //floors up to your discretion
     this.Platforms([10, 0.2, 70], [this.x, this.y, this.z], [0, 0, 0], floor_texture); //floor 1
-    this.Platforms([10, 0.2, 70], [this.x-15, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 2
-    this.Platforms([10, 0.2, 70], [this.x-5, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 3
-    this.Platforms([10, 0.2, 70], [this.x+5, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 4
-    this.Platforms([10, 0.2, 70], [this.x+15, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 5
+    this.Platforms([10, 0.2, 70], [this.x-15, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 2.1
+    this.Platforms([10, 0.2, 70], [this.x-5, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 2.2
+    this.Platforms([10, 0.2, 70], [this.x+5, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 2.3
+    this.Platforms([10, 0.2, 70], [this.x + 15, this.y, this.z + 70], [0, 0, 0], floor_texture); //floor 2.4
+    
+    this.Platforms([10, 0.2, 70], [this.x , this.y, this.z + 140], [0, 0, 0], floor_texture); //winning platform 
   }
 
   initializeDynamic() {
@@ -154,25 +156,25 @@ export class EndRoom{
     this.Guilotine5.setRotation({ x: G5RotX, y: -Math.PI / 4, z: 0 });
     this.Guilotine5.update();
 
-    let G6RotY = Date.now() / 1000;
-    this.CirclePlatformLeft.setRotation({ x: 0, y: G6RotY, z: 0 });//guilotine blade spinning in place
+    let CircleRightRotY = Date.now() / 1000;
+    this.CirclePlatformLeft.setRotation({ x: 0, y: CircleRightRotY, z: 0 });//guilotine blade spinning in place
     this.CirclePlatformLeft.update();
 
-    let G7RotY = -Date.now() / 1000;
-    this.CirclePlatformRight.setRotation({ x: 0, y: G7RotY, z: 0 });//guilotine blade spinning in place
+    let CircleLeftRotY = -Date.now() / 1000;
+    this.CirclePlatformRight.setRotation({ x: 0, y: CircleLeftRotY, z: 0 });//guilotine blade spinning in place
     this.CirclePlatformRight.update();
 
-    let G8NewX = Math.sin(-Date.now() / 400) * 4* Math.PI;
-    this.Guilotine8.setPosition({ x: this.x + G8NewX, y: this.y + 5, z: this.z + 75 });//guilotine blade moving horizontally
+    let G6NewX = Math.sin(-Date.now() / 400) * 4* Math.PI;
+    this.Guilotine6.setPosition({ x: this.x + G6NewX, y: this.y + 5, z: this.z + 75 });//guilotine blade moving horizontally
+    this.Guilotine6.update();
+
+    let G7NewX = Math.sin(-Date.now() / 400 + Math.PI/2) * 4 * Math.PI;
+    this.Guilotine7.setPosition({ x: this.x + G7NewX, y: this.y + 5, z: this.z + 80 });//guilotine blade moving horizontally
+    this.Guilotine7.update();
+
+    let G8NewX = Math.sin(-Date.now() / 400 - Math.PI / 2) * 4 * Math.PI;
+    this.Guilotine8.setPosition({ x: this.x + G8NewX, y: this.y + 5, z: this.z + 85 });//guilotine blade moving horizontally
     this.Guilotine8.update();
-
-    let G9NewX = Math.sin(-Date.now() / 400 + Math.PI/2) * 4 * Math.PI;
-    this.Guilotine9.setPosition({ x: this.x + G9NewX, y: this.y + 5, z: this.z + 80 });//guilotine blade moving horizontally
-    this.Guilotine9.update();
-
-    let G10NewX = Math.sin(-Date.now() / 400 - Math.PI / 2) * 4 * Math.PI;
-    this.Guilotine10.setPosition({ x: this.x + G10NewX, y: this.y + 5, z: this.z + 85 });//guilotine blade moving horizontally
-    this.Guilotine10.update();
   }
   resetFrontWall() {
     this.FrontWall.setPosition({ x: this.x, y: this.y + 5, z: this.z - 25 }); 
