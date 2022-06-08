@@ -29,6 +29,7 @@ export class Player{
         this.body = new CANNON.Body({ mass: 5, material: this.physicsMaterial });
         this.body.addShape(this.bodyShape);
         this.body.position.set(-15, 3, -20);
+
         this.body.linearDamping = 0.9;
         this.initPointerLock();
     }
@@ -53,7 +54,12 @@ export class Player{
 
         this.controls.addEventListener('unlock', () => {
           this.controls.enabled = false;
-          instructions.style.display = null;
+          instructions.style.display = 'flex';
+        })
+
+        btnStart.addEventListener('click', () => {
+          this.controls.lock();
+          menuBg.style.display = 'none';
         })
     }
     returnBody(){
@@ -68,8 +74,8 @@ export class Player{
       this.setPosition({ x: -15, y: 3, z: -20 });
     }
 
-    update(dt){
-      
+    update(dt)
+{
       //console.log(this.body.position);
       this.controls.update(dt);
     }

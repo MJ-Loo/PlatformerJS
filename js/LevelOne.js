@@ -7,6 +7,7 @@ import { RitualRoom } from './objects/RitualRoom.js';
 import { Corridor } from './objects/Corridor.js';
 import {EndRoom} from './objects/End.js'
 
+
 export class LevelOne{
     constructor(scene, world, renderer, player){
         this.scene = scene;
@@ -14,6 +15,7 @@ export class LevelOne{
         this.renderer = renderer;
         this.player = player;
         // add ambient light
+
         this.ambientLight = new THREE.AmbientLight( 0x404040, 2 ); // soft white light
         scene.add( this.ambientLight );
 
@@ -69,7 +71,7 @@ export class LevelOne{
         this.Mp2.mesh.castShadow = true;
         this.world.addBody(this.Mp2.body);
         this.scene.add(this.Mp2.mesh);
-
+      
         let params3 = { 
             scale: {x: 4, y:1, z: 4},
             mass: 0,
@@ -91,6 +93,7 @@ export class LevelOne{
             material: new THREE.MeshStandardMaterial({map: platform_texture,color: 0x404040, wireframe: false})
         }
         this.Mp4 = new Box(params4);
+
         this.Mp4.mesh.receiveShadow = true;
         this.Mp4.mesh.castShadow = true;
         this.world.addBody(this.Mp4.body);

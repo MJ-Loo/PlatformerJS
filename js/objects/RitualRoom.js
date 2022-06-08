@@ -16,32 +16,38 @@ export class RitualRoom{
       this.y=y;
       this.z =z;      
       // adding the point light for the candles
+
       this.candleLight1 = new THREE.PointLight(0xff6726, 2, 10); //0xffd07d
       this.candleLight1.position.set(  this.x+2.5,this.y+3,this.z+7.3);
+
       this.scene.add(this.candleLight1);
       this.candleLight1.castShadow = true;
       this.candleLight1.receiveShadow = true;
 
       this.candleLight2 = new THREE.PointLight(0xff6726, 2, 10); //0xffb87d
       this.candleLight2.position.set(   this.x, this.y+3,this.z-6.3);
+
       this.scene.add(this.candleLight2);
       this.candleLight2.castShadow = true;
       this.candleLight2.receiveShadow = true;
       
       this.candleLight3 = new THREE.PointLight(0xff6726, 2, 10); //0xffd180
       this.candleLight3.position.set(   this.x-4.2,this.y+3,this.z+6.8);
+
       this.scene.add(this.candleLight3);
       this.candleLight3.castShadow = true;
       this.candleLight3.receiveShadow = true;
-
+      
       this.candleLight4 = new THREE.PointLight(0xff6726, 2, 10); //0xff6726
       this.candleLight4.position.set(   this.x +7.6,this.y+3,this.z-0.7);
+
       this.scene.add(this.candleLight4);
       this.candleLight4.castShadow = true;
       this.candleLight4.receiveShadow = true;
 
       this.candleLight5 = new THREE.PointLight(0xff6726, 2, 10); //0xfff5e3
       this.candleLight5.position.set(  this.x-5.6,this.y+3,this.z-2.7);
+      
       this.scene.add(this.candleLight5);
       this.candleLight5.castShadow = true;
       this.candleLight5.receiveShadow = true;
@@ -83,6 +89,7 @@ export class RitualRoom{
         mass: 0,
         position: translation,
         material: new THREE.MeshPhongMaterial({ color: 0xffefd6, wireframe: false, shininess: 50 })
+
     }
       this.candle = new Cylinder(params);
       this.candle.mesh.receiveShadow = true;
@@ -155,7 +162,6 @@ export class RitualRoom{
       this.candleLight5.intensity = Math.sin(Date.now()/300)+4;
       this.candleLight5.distance = Math.sin(Date.now()/190)+13 ;
     }
-
     createStatic(x,y,z){
       this.StaticPlatforms([7,1,7],[x-5,y+1,z]);
       this.StaticPlatforms([4,1,4],[x+4,y-1,z+10]);
@@ -172,7 +178,7 @@ export class RitualRoom{
       this.StaticPlatforms([5,1,5],[x+12,y+4,z+100]);
 
     }
-
+  
     StaticPlatforms(scale,position){ 
       const platform_texture = this.texture.load('./assets/RitualRoom/tiles.png');
       const maxAnisotropy = this.renderer.capabilities.getMaxAnisotropy();
@@ -193,6 +199,4 @@ export class RitualRoom{
       this.world.addBody(this.platform.body);
       this.scene.add(this.platform.mesh);
     }
-
-
   }

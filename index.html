@@ -7,6 +7,7 @@
     <title>PlatformerJS</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="./css/styles.css" rel="stylesheet" type="text/css">
+    <link href="./css/mainmenu.css" rel="stylesheet" type="text/css">
     <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
     <script type="importmap">
       {
@@ -19,16 +20,38 @@
   <body>
     <div id="instructions">
         <div id="container">
-          <p class="heading">Asylum</p>
+          <p class="heading">Pause</p>
           <br/>
           <div class="buttons">
             <button id="btnResume" type="button">Resume</button>
-            <button id="btnRestart" type="button">Restart</button>
+          <button id="btnRestart" type="button">Restart</button>
         </div>
         </div>
     </div>
+    <div id = "menuBg">
+      <div id="mainMenu">
+        <div id="menuContainer">
+          <p id="gameName">Asylum</p>
+          <br/>
+          <div class="buttons">
+            <button id="btnStart" type="button">Start</button>
+            <button id="btnHowToPlay" type="button" onclick="toggleControls()">Controls</button>
+          <br/>
+          <ul id = controls>
+            <li>Jump=Space</li>
+            <li>W=Forward</li>
+            <li>A=Backwards</li>
+            <li>S=Left</li>
+            <li>D=Right</li>
+            <li>Mouse=Look</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
     <script type="module" src="./main.js"></script>
-    <script src="./js/menu.js"></script>
+    <script src="./js/pauseMenu.js"></script>
+    <script src="./js/mainMenu.js"></script>
   </body>
   <audio loop autoplay>
     <source src="../BGM.mp3" type="audio/mpeg">
