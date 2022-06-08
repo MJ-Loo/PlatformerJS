@@ -28,7 +28,7 @@ export class Player{
         this.physicsMaterial = new CANNON.Material('physics');
         this.body = new CANNON.Body({ mass: 5, material: this.physicsMaterial });
         this.body.addShape(this.bodyShape);
-        this.body.position.set(-15, 3, 20);
+        this.body.position.set(-15, 3, -20);
         this.body.linearDamping = 0.9;
         this.initPointerLock();
     }
@@ -65,7 +65,7 @@ export class Player{
     }
 
     resetPosition(){
-      this.setPosition({x: -10, y: 20, z: 217});
+      this.setPosition({ x: -15, y: 3, z: -20 });
     }
 
     update(dt){

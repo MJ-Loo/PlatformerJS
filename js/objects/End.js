@@ -40,8 +40,13 @@ export class EndRoom{
   initializeDynamic() {
     const wall_texture = this.texture.load('./assets/Corridor/Cwalllong2.jpg');
     const blade_texture = this.texture.load('./assets/End/blade.jpg');
-    const rotate_blade_texture = this.texture.load('./assets/RitualRoom/RRFloor.jpg');
-    //wall in front of player. pitch blank interior. Exterior p to your discretion
+    const blade2_texture = this.texture.load('./assets/End/blade2.jpg');
+    const blade3_texture = this.texture.load('./assets/End/blade3.jpg');
+    const circle_texture = this.texture.load('./assets/End/RitualCircle.png');
+    circle_texture.wrapS = THREE.RepeatWrapping;
+    circle_texture.wrapT = THREE.RepeatWrapping;
+    circle_texture.repeat.set(1,1);
+    //wall in front of player. pitch blank interior. 
     this.FrontWall = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z - 25], [0, 0, 0], wall_texture);
 
     //color is pure black, unlike others, to give black image in spawn
@@ -67,17 +72,17 @@ export class EndRoom{
     
     //diagonal swinging Guilotine: similar to https://cdn.discordapp.com/attachments/972915340050825246/982401581263777833/unknown.png
     //if possible, else: stainless steel cleaver
-    this.Guilotine4 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z + 50], [0, Math.PI/3, 0], blade_texture);
-    this.Guilotine5 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z + 50], [0, -Math.PI / 3, 0], blade_texture);
+    this.Guilotine4 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z + 50], [0, Math.PI/3, 0], blade3_texture);
+    this.Guilotine5 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z + 50], [0, -Math.PI / 3, 0], blade3_texture);
 
-    //rotating fan/saw blades if possible, else bloodied stainless cleaver 
-    this.Guilotine6 = this.Platforms([10, 0.2, 10], [this.x + 12, this.y + 3, this.z + 53], [0, 0, 0], rotate_blade_texture);
-    this.Guilotine7 = this.Platforms([10, 0.2, 10], [this.x - 12, this.y + 3, this.z + 53], [0, 0, 0], rotate_blade_texture);
+    //rotating fan/saw blades if possible, else bloodied stainless cleaver
+    this.CirclePlatformLeft = this.CirclePlatform([this.x + 12, this.y + 3, this.z + 53], circle_texture);
+    this.CirclePlatformRight = this.CirclePlatform([this.x - 12, this.y + 3, this.z + 53], circle_texture);
     
     //cleaver with more blood on sides
-    this.Guilotine8 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 75], [0, 0, 0], blade_texture);
-    this.Guilotine9 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 80], [0, 0, 0], blade_texture);
-    this.Guilotine10 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 85], [0, 0, 0], blade_texture);
+    this.Guilotine6 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 75], [0, 0, 0], blade2_texture);
+    this.Guilotine7 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 80], [0, 0, 0], blade2_texture);
+    this.Guilotine8 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 85], [0, 0, 0], blade2_texture);
 
   }
   Platforms(scale, position, rotation, file) {
@@ -95,6 +100,20 @@ export class EndRoom{
     this.scene.add(this.platform.mesh);
 
     return this.platform;
+  }
+  CirclePlatform(position, texture) {
+    let params = {
+      dim: { r1: (3), r2: (3), h: 0.2, s: 32 },
+      mass: 0,
+      position: position,
+      material: new THREE.MeshPhongMaterial({ map: texture, color: 0x404040, wireframe: false, shininess: 50 })
+    }
+    this.CirclePlat = new Cylinder(params);
+    this.CirclePlat.mesh.receiveShadow = true;
+    this.CirclePlat.mesh.castShadow = true;
+    this.world.addBody(this.CirclePlat.body);
+    this.scene.add(this.CirclePlat.mesh);
+    return this.CirclePlat;
   }
 
   update() {
@@ -136,12 +155,12 @@ export class EndRoom{
     this.Guilotine5.update();
 
     let G6RotY = Date.now() / 1000;
-    this.Guilotine6.setRotation({ x: 0, y: G6RotY, z: 0 });//guilotine blade spinning in place
-    this.Guilotine6.update();
+    this.CirclePlatformLeft.setRotation({ x: 0, y: G6RotY, z: 0 });//guilotine blade spinning in place
+    this.CirclePlatformLeft.update();
 
     let G7RotY = -Date.now() / 1000;
-    this.Guilotine7.setRotation({ x: 0, y: G7RotY, z: 0 });//guilotine blade spinning in place
-    this.Guilotine7.update();
+    this.CirclePlatformRight.setRotation({ x: 0, y: G7RotY, z: 0 });//guilotine blade spinning in place
+    this.CirclePlatformRight.update();
 
     let G8NewX = Math.sin(-Date.now() / 400) * 4* Math.PI;
     this.Guilotine8.setPosition({ x: this.x + G8NewX, y: this.y + 5, z: this.z + 75 });//guilotine blade moving horizontally

@@ -231,6 +231,12 @@ export class LevelOne{
         if (this.checkCollision(this.End.Guilotine5)) {
             return true;
         }
+        if (this.checkCircleCollision(this.End.CirclePlatformLeft)) {
+            return true;
+        }
+        if (this.checkCircleCollision(this.End.CirclePlatformRight)) {
+            return true;
+        }
         if (this.checkCollision(this.End.Guilotine6)) {
             return true;
         }
@@ -240,17 +246,31 @@ export class LevelOne{
         if (this.checkCollision(this.End.Guilotine8)) {
             return true;
         }
-        if (this.checkCollision(this.End.Guilotine9)) {
-            return true;
-        }
-        if (this.checkCollision(this.End.Guilotine10)) {
-            return true;
-        }
         return false;
     }
     checkCollision(Guilotine) {
         if (this.checkXPosition(Guilotine) && this.checkYPosition(Guilotine) && this.checkZPosition(Guilotine))
         {
+            return true;
+        }
+        return false;
+    }
+    checkCircleCollision(CirclePlatform)
+    {
+        let xCheck = false;
+        let yCheck = false;
+        let zCheck = false;
+        //console.log(CirclePlatform.body.boundingRadius);
+        if (Math.abs(this.player.body.position.x - CirclePlatform.body.position.x) < CirclePlatform.body.boundingRadius) {
+            xCheck = true;
+        }
+        if (this.player.body.position.y < 5) {
+            yCheck = true;
+        }
+        if (Math.abs(this.player.body.position.z - CirclePlatform.body.position.z) < CirclePlatform.body.boundingRadius) {
+            zCheck = true;
+        }
+        if (xCheck && yCheck && zCheck) {
             return true;
         }
         return false;
