@@ -25,11 +25,11 @@ export class EndRoom{
     const wall_texture = this.texture.load('./assets/Corridor/Cwalllong2.jpg');
     const floor_texture = this.texture.load('./assets/End/endFloor.jpg');
 
-    //walls on spawn. interrior should be pitch blank. Exterior up to your discretion
+    //walls on spawn
     this.Platforms([10, 10, 0.2], [this.x, this.y+5, this.z - 35], [0, 0, 0], wall_texture);
     this.Platforms([0.2, 10, 10], [this.x - 5, this.y+5, this.z - 30], [0, 0, 0], wall_texture);
     this.Platforms([0.2, 10, 10], [this.x + 5, this.y + 5, this.z - 30], [0, 0, 0], wall_texture);
-    //floors up to your discretion
+    //floors
     this.Platforms([10, 0.2, 70], [this.x, this.y, this.z], [0, 0, 0], floor_texture); //floor 1
     this.Platforms([10, 0.2, 70], [this.x-15, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 2.1
     this.Platforms([10, 0.2, 70], [this.x-5, this.y, this.z+70], [0, 0, 0], floor_texture); //floor 2.2
@@ -65,23 +65,22 @@ export class EndRoom{
     this.world.addBody(this.InnerFrontWall.body);
     this.scene.add(this.InnerFrontWall.mesh);
 
-    //first Guilotine rusty cleaver, sharp bottom and top if possible
+    //first Guilotine  blood on bottom
     this.Guilotine1 = this.Platforms([10, 5, 0.2], [this.x, this.y + 5, this.z - 10], [0, 0, 0], blade_texture);
     this.Guilotine2 = this.Platforms([10, 5, 0.2], [this.x, this.y + 5, this.z], [0, 0, 0], blade_texture);
 
-    //swinging Guilotine similar to https://cdn.discordapp.com/attachments/972915340050825246/982961020807028776/unknown.png
+    //swinging Guilotine blood on bottom
     this.Guilotine3 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z+20], [0, 0, 0], blade_texture);
     
-    //diagonal swinging Guilotine: similar to https://cdn.discordapp.com/attachments/972915340050825246/982401581263777833/unknown.png
-    //if possible, else: stainless steel cleaver
+    //blades with blood on sides and bottom
     this.Guilotine4 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z + 50], [0, Math.PI/3, 0], blade3_texture);
     this.Guilotine5 = this.Platforms([0.2, 5, 10], [this.x, this.y + 5, this.z + 50], [0, -Math.PI / 3, 0], blade3_texture);
 
-    //rotating fan/saw blades if possible, else bloodied stainless cleaver
+    //roating circles
     this.CirclePlatformLeft = this.CirclePlatform([this.x + 12, this.y + 3, this.z + 53], circle_texture);
     this.CirclePlatformRight = this.CirclePlatform([this.x - 12, this.y + 3, this.z + 53], circle_texture);
     
-    //cleaver with more blood on sides
+    //blades with more blood on sides
     this.Guilotine6 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 75], [0, 0, 0], blade2_texture);
     this.Guilotine7 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 80], [0, 0, 0], blade2_texture);
     this.Guilotine8 = this.Platforms([10, 10, 0.2], [this.x, this.y + 5, this.z + 85], [0, 0, 0], blade2_texture);

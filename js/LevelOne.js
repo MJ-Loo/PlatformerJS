@@ -175,6 +175,9 @@ export class LevelOne{
         this.countDownDate = Date.now() + 300000;
     }
     
+    onWin() {
+        console.log("You win");
+    }
     update(){ 
         // update positions and rotations of all objects
         // also updates any visual changes like flashing light
@@ -253,7 +256,7 @@ export class LevelOne{
         }
         if (level == 4) //win
         {
-            console.log("You won");
+            this.onWin();
         }
         if (this.status == 0) //dead
         {
