@@ -166,8 +166,9 @@ export class LevelOne{
 
     onDeath(){
         deathBg.style.display = 'flex';
+        var deathSound = new Audio('../assets/audio/dark-souls-death.mp3');
+        deathSound.play();
         this.player.controls.unlock();
-        var time = Date.now()
         this.player.setPosition({ x: -15, y: 3, z: -20 })
         console.log("you lose!");
         this.scene.background = this.sky1;
