@@ -22,7 +22,7 @@
 #btnContinue{
     color: #b8b8b8;
     background-color: rgb(0, 0, 0);
-    font-family: OptimusPrinceps, sans-serif;
+    font-family: 'OptimusPrinceps', sans-serif;
     animation: fade-in 10s linear, button-zoom 5s linear;
 }
 
