@@ -17,18 +17,16 @@
 
 
 .wrapper {
-    height: 100vh;
     /*This part is important for centering*/
     display: grid;
     place-items: center;
 }
 
 .typing-demo {
-    width: 22ch;
-    animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+    width: 50ch;
+    animation: typing 2s steps(50), blink 6000s step-end infinite alternate;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 3px solid;
     font-family: monospace;
     font-size: 2em;
     color: white ;
