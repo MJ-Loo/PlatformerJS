@@ -176,6 +176,11 @@ export class LevelOne{
     }
     
     onWin() {
+        winBg.style.display = 'flex';
+        this.player.controls.unlock();
+        this.player.setPosition({ x: -15, y: 3, z: -20 })
+        this.scene.background = this.sky1;
+        this.countDownDate = Date.now() + 300000;
         console.log("You win");
     }
     update(){ 

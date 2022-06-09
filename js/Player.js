@@ -65,6 +65,11 @@ export class Player{
           this.controls.lock();
           deathBg.style.display = 'none';
         })
+
+        btnWin.addEventListener('click', () => {
+          this.controls.lock();
+          winBg.style.display = 'none';
+        })
     }
     returnBody(){
       return this.body;
