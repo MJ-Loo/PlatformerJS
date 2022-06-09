@@ -163,6 +163,13 @@ export class LevelOne{
             this.status = 0;
         }
     }
+
+    onDeath(){
+        this.player.setPosition({ x: -15, y: 3, z: -20 })
+        console.log("you lose!");
+        this.scene.background = this.sky1;
+        this.countDownDate = Date.now() + 300000;
+    }
     
     update(){ 
         // update positions and rotations of all objects
@@ -246,11 +253,7 @@ export class LevelOne{
         }
         if (this.status == 0) //dead
         {
-            this.player.setPosition({ x: -15, y: 3, z: -20 })
-            console.log("you lose!");
-            this.scene.background = this.sky1;
-            this.countDownDate = Date.now() + 300000; // set timer start
-
+            this.onDeath();
         }
     } 
     checkBladeCollisions() {
